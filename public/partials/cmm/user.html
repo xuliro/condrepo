@@ -1,0 +1,118 @@
+<div class="col-xs-12 col-sm-12 text-center" ng-if="user.provider != 'github' && user.provider != 'facebook'">
+    <label class="col-xs-12 col-sm-2" for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="user.name"></label>
+    <label class="col-xs-12 col-sm-3" for="contact">Contato <input type="text" class="form-control form-inline" id="contact" name="contact" required ng-model="user.contact"></label>
+    <label class="col-xs-12 col-sm-3" for="email">Email <input type="text" class="form-control form-inline" id="login" name="email" required ng-model="user.email"></label>
+    <label class="col-xs-12 col-sm-2" for="login">Login <input type="text" class="form-control form-inline" id="login" name="login" required ng-model="user.login"></label>
+    <label class="col-xs-12 col-sm-2" for="password">Password <input type="password" class="form-control form-inline" id="password" name="password" required ng-model="user.password"></label>
+</div>
+<div class="text-center col-xs-12 col-sm-12" ng-if="user.possessions.length > 0">
+    <div class="col-xs-12 col-sm-6" ng-if="animals > 0">
+      <table class="table table-hover">
+        <label>Animais cadastrados: {{animals}}</label>
+        <tr>
+            <th class="text-left">Tipo de Animal</th>
+            <th class="text-left">Descrição</th>
+            <th class="text-right">Ações</th>
+        </tr>
+        <tr ng-repeat="possession in user.possessions | filter: {id: 0}">
+            <td class="text-left">{{possession.category}}</td>
+            <td class="text-left">{{possession.details}}</td>
+            <td class="text-right">
+              <a class="btn btn-danger" ng-click="removePossession(possession)"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-12 col-sm-6" ng-if="vehicles > 0">
+      <table class="table table-hover">
+        <label>Veículos cadastrados: {{vehicles}}</label>
+        <tr>
+            <th class="text-left">Tipo de Veículo</th>
+            <th class="text-left">Descrição</th>
+            <th class="text-left">Placa</th>
+            <th class="text-right">Ações</th>
+        </tr>
+        <tr ng-repeat="possession in user.possessions | filter: {id: 1}">
+            <td class="text-left">{{possession.category}}</td>
+            <td class="text-left">{{possession.details}}</td>
+            <td class="text-left">{{possession.license}}</td>
+            <td class="text-right">
+              <a class="btn btn-danger" ng-click="removePossession(possession)"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+      </table>
+    </div>
+</div>
+<div class="form-group text-center">
+  <div class="form-inline col-xs-12 col-sm-12">
+      <label>Adicionar: </label>
+      <label for="animal"> <input type="radio" id="animal"  name="animal" value="0"  ng-model="possession.id"> Animal</label>
+      <label for="vehicle"><input type="radio" id="vehicle" name="vehicle"value="1" ng-model="possession.id"> Veiculo</label>
+      <a class="btn btn-primary" ng-if="(possession.id == 0 || possession.id == 1)" ng-click="addPossession(possession)"><i class="fa fa-plus"></i></a>
+  </div>
+  <div class="form-group text-center col-xs-12 col-sm-12" ng-if="possession.id == 0 || possession.id == 1">
+      <div class="col-xs-12 col-sm-6">
+        <table class="table">
+          <tr>
+              <th ng-if="possession.id == 0">Tipo (Gato, Peixe, Cachorro, etc)</th>
+              <th ng-if="possession.id == 1">Tipo (Carro, Moto, Caminhão, etc)</th>
+          </tr>
+          <tr>
+              <td><input type="text" class="form-control" id="c" name="c" ng-model="possession.category"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <table class="table">
+          <tr>
+              <th ng-if="possession.id == 0">Descrição (Raça, cor, nome, etc)</th>
+              <th ng-if="possession.id == 1">Descrição (Marca, modelo, cor, etc)</th>
+              <th ng-if="possession.id == 1">Placa</th>
+          </tr>
+          <tr>
+              <td><input type="text" class="form-control" id="d" name="d" ng-model="possession.details"></td>
+              <td><input ng-if="possession.id == 1" type="text" class="form-control" id="l" name="l" ng-model="possession.license"></td>
+          </tr>
+        </table>
+      </div>
+      <p></p>
+  </div>
+</div>
+<p></p>
+<div class="col-xs-12 col-sm-12">
+  <div class="table-responsive col-xs-12 col-sm-6" ng-if="received.length > 0">
+      <label>Mensagens recebidas: </label>
+      <table class="table table-hover">
+          <tr>
+            <th class="text-left">Título</th>
+            <th class="text-left">Remetente</th>
+            <th class="text-right">Ações</th>
+          </tr>
+          <tr ng-repeat="message in received">
+            <td class="text-left">{{message.title}}</td>
+            <td class="text-left">{{message.sender.name}}</td>
+  		      <td class="text-right">
+              <a class="btn btn-success" ng-controller="MessagesController" ng-click="showDetails(message)"><i class="fa fa-search"></i></a>
+            </td>
+          </tr>
+      </table>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-6" ng-if="sent.length > 0">
+      <label>Mensagens enviadas:</label>
+      <table class="table table-hover">
+          <tr>
+            <th class="text-left">Título</th>
+            <th class="text-left">Destinatário</th>
+            <th class="text-right">Ações</th>
+          </tr>
+          <tr ng-repeat="message in sent">
+            <td class="text-left">{{message.title}}</td>
+            <td class="text-left">{{message.receiver.name}}</td>
+  		      <td class="text-right">
+              <a class="btn btn-primary" ng-href="#/message/{{message._id}}"><i class="fa fa-pencil"></i></a>
+              <a class="btn btn-danger" ng-click="removeMessage(message)"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+      </table>
+  </div>
+</div>

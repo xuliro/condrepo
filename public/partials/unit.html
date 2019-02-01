@@ -1,0 +1,77 @@
+<h1 class="text-center">Unidade</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaUnit()">
+    <div class="form-group text-center">
+        <p></p>
+        <label for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="unit.name"></label>
+        <label for="fraction">Fração Ideal <input type="text" class="form-control form-inline" id="fraction" name="fraction" required ng-model="unit.fraction"></label>
+    </div>
+    <div class="form-group text-center" ng-if="users.length > 0">
+        <label for="name">Usuários: </label>
+        <table class="table table-hover">
+          <tr>
+              <th class="text-left">Login</th>
+              <th class="text-left">Nome</th>
+              <th class="text-left">Provider</th>
+              <th class="text-center" ng-if="user.isSuper">Gestor</th>
+              <th class="text-center">Síndico</th>
+              <th class="text-center">Bloqueado</th>
+              <th class="text-right">Ações</th>
+          </tr>
+          <tr ng-repeat="user in users">
+              <td class="text-left">{{user.login}}</td>
+              <td class="text-left">{{user.name}}</td>
+              <td class="text-left">{{user.provider}}</td>
+              <td class="text-center" ng-if="user.isSuper"><i class="fa fa-check text-success" ng-if="user.isAdmin == true"></i><i class="fa fa-times text-danger" ng-if="user.isAdmin == false"></i></td>
+              <td class="text-center"><i class="fa fa-check text-success" ng-if="user.isSuper == true"></i><i class="fa fa-times text-danger" ng-if="user.isSuper == false"></i></td>
+              <td class="text-center"><i class="fa fa-ban text-danger" ng-if="user.isBlocked == true"></i><i class="fa fa-check text-success" ng-if="user.isBlocked == false"></i></td>
+              <td class="text-right">
+                <a class="btn btn-primary" ng-href="#/user/{{user._id}}"><i class="fa fa-pencil"></i></a>
+              </td>
+          </tr>
+        </table>
+    </div>
+    <div class="table-responsive col-xs-12 col-sm-6" ng-if="workers.length > 0">
+        <label>Funcionários desta unidade:</label>
+        <table class="table table-hover">
+            <tr>
+                <th class="text-left">Nome</th>
+                <th class="text-left">Contato</th>
+                <th class="text-right">Ação</th>
+            </tr>
+            <tr ng-repeat="worker in workers">
+                <td class="text-left">{{worker.name}}</td>
+                <td class="text-left">{{worker.contact}}</td>
+    			      <td class="text-right">
+                  <a class="btn btn-primary" ng-href="#/worker/{{worker._id}}"><i class="fa fa-pencil"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <p></p>
+    <div class="table-responsive col-xs-12 col-sm-6" ng-if="visitors.length > 0">
+        <label>Visitantes: </label>
+        <table class="table table-hover">
+            <tr>
+                <th class="text-left">Nome</th>
+                <th class="text-left">Contato</th>
+                <th class="text-left">Documento</th>
+                <th class="text-left">Entrada</th>
+                <th class="text-left">Ações</th>
+            </tr>
+            <tr ng-repeat="visitor in visitors">
+              <td class="text-left">{{visitor.name}}</td>
+              <td class="text-left">{{visitor.contact}}</td>
+              <td class="text-left">{{visitor.document}}</td>
+              <td class="text-left">{{visitor.enter | date:'dd/MM/yyyy'}}</td>
+    			      <td class="text-right">
+                  <a class="btn btn-primary" ng-href="#/visitor/{{visitor._id}}"><i class="fa fa-pencil"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-responsive col-xs-12 col-sm-12 text-center">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button ng-click="back()" class="btn btn-default">Voltar</button>
+    </div>
+</form>

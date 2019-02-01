@@ -1,0 +1,21 @@
+<span class="text-primary">Funcionarios cadastrados: {{workers.length}}</span>
+<div ng-controller="WorkersController">
+  <table class="table table-hover">
+    <tr>
+        <th class="text-center col-xs-12 col-sm-3">Nome</th>
+        <th class="text-center col-xs-12 col-sm-2">Torre</th>
+        <th class="text-center col-xs-12 col-sm-2">Unidade</th>
+        <th class="text-center col-xs-12 col-sm-1">Detalhes</th>
+    </tr>
+    <tr ng-repeat="worker in workers">
+        <td class="text-center col-xs-12 col-sm-3">{{worker.name}}</td>
+        <td class="text-center col-xs-12 col-sm-2">{{worker.tower.name}}</td>
+        <td class="text-center col-xs-12 col-sm-2">{{worker.unit.name}}</td>
+        <td class="text-right">
+          <a class="btn btn-primary" ng-if="loggedUser.unit._id === worker.unit._id || (worker.unit === null && loggedUser.isAdmin) || loggedUser.isSuper" ng-href="#/worker/{{worker._id}}"><i class="fa fa-pencil"></i></a>
+          <a class="btn btn-success" ng-if="loggedUser.unit._id != worker.unit._id && worker.unit != null && !loggedUser.isSuper" ng-click="showDetails(worker)"><i class="fa fa-search"></i></a>
+          <a class="btn btn-danger" ng-click="removeWorker(worker)"><i class="fa fa-trash"></i></a>
+        </td>
+    </tr>
+  </table>
+</div>

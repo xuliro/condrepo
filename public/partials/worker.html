@@ -1,0 +1,33 @@
+<h1 class="text-center">Funcionário</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaWorker()">
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-3" for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="worker.name"></label>
+      <label class="col-xs-12 col-sm-5" for="address">Endereço <input type="text" class="form-control form-inline" id="address" name="address" required ng-model="worker.address"></label>
+      <label class="col-xs-12 col-sm-2" for="document">Documento <input type="text" class="form-control form-inline" id="document" name="document" required ng-model="worker.document"></label>
+      <label class="col-xs-12 col-sm-2" for="contact">Contato <input type="text" class="form-control form-inline" id="contact" name="contact" required ng-model="worker.contact"></label>
+  </div>
+  <div class="form-inline form-group text-center">
+    <label>Associar a: </label>
+    <select id="co" class="form-control" ng-model="filtroC" ng-change="coWorkerChanged(filtroC)">
+      <option ng-if="worker.condom == null || worker.condom == '' || worker.condom == undefined" value='' selected>Condominio</option>
+      <option ng-if="worker.condom != null && worker.condom != '' && worker.condom != undefined" value='' selected>{{worker.condom.name}}</option>
+      <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    </select>
+    <select id="to" class="form-control" ng-model="filtroT" ng-change="toWorkerChanged(filtroT)">
+      <option ng-if="worker.tower == null || worker.tower == '' || worker.tower == undefined" value='' selected>Torre</option>
+      <option ng-if="worker.tower != null && worker.tower != '' && worker.tower != undefined" value='' selected>{{worker.tower.name}}</option>
+      <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
+    </select>
+    <select id="un" class="form-control" ng-model="filtroU" ng-change="unWorkerChanged(filtroU)">
+      <option ng-if="worker.unit == null || worker.unit == '' || worker.unit == undefined" value='' selected>Unidade</option>
+      <option ng-if="worker.unit != null && worker.unit != '' && worker.unit != undefined" value='' selected>{{worker.unit.name}}</option>
+      <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
+    </select>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+    <p></p>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

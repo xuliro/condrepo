@@ -1,0 +1,39 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/server">Novo Prestador</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">
+  <span> Filtros </span>
+  <select id="co" class="form-control" ng-model="filtroC" ng-change="condomServerChanged(filtroC)">
+    <option value='' selected>Condominio</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+  </select>
+</form>
+<p>Prestadores cadastrados: {{servers.length}}</p>
+<p class="text-info" ng-hide="servers.length">Não há prestadores cadastrados</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Nome</th>
+          <th class="text-left">Categoria</th>
+          <th class="text-left">Descrição</th>
+          <th class="text-left">Contato</th>
+          <th class="text-left">Condomínio</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="server in servers | filter: filterServers">
+          <td class="text-left">{{server.name}}</td>
+          <td class="text-left">{{server.category}}</td>
+          <td class="text-left">{{server.description}}</td>
+          <td class="text-left">{{server.contact}}</td>
+          <td class="text-left">{{server.condom.name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-href="#/server/{{server._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-click="removeServer(server)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-click="showDetails(server)"><i class="fa fa-search"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

@@ -1,0 +1,53 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/message">Nova Mensagem</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por título">
+  <span> Filtros </span>
+  <select id="from" class="form-control" ng-model="filtroS" ng-change="senderMessageChanged(filtroS)">
+    <option value='' selected>Remetente</option>
+    <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+  </select>
+  <select id="to" class="form-control" ng-model="filtroR" ng-change="receiverMessageChanged(filtroR)">
+    <option value='' selected>Destinatário</option>
+    <option ng-repeat="user in users | unique: 'user._id'" value='{{user}}'>{{user.name}}</option>
+  </select>
+</form>
+<p>Mensagens cadastradas: {{messages.length}} (Só serão exibidas mensagens onde o seu usuário for o remetente ou o destinatário)</p>
+<p class="text-info" ng-hide="messages.length">Não há mensagens cadastradas</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Título</th>
+          <th class="text-left">Tipo</th>
+          <th class="text-left">Remetente</th>
+          <th class="text-left">Destinatário</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="message in messages | filter: filterMessages"
+          ng-if="(loggedUser._id === message.sender._id || loggedUser._id === message.receiver._id) ||
+                loggedUser.isSuper">
+          <td class="text-left">{{message.title}}</td>
+          <td class="text-left" ng-if="message.type == 0">Comunicado</td>
+          <td class="text-left" ng-if="message.type == 1">Alerta</td>
+          <td class="text-left" ng-if="message.type == 2">Entrega</td>
+          <td class="text-left" ng-if="message.type == 3">Portaria</td>
+          <td class="text-left" ng-if="message.type == 4">Segurança</td>
+          <td class="text-left" ng-if="message.type == 5">Entre Moradores</td>
+          <td class="text-left" ng-if="message.type == 6">Sugestão de pauta</td>
+          <td class="text-left" ng-if="message.type == 7">Reclamação</td>
+          <td class="text-left" ng-if="message.type == 8">Denúncia</td>
+          <td class="text-left" ng-if="message.type == 9">Solicitação</td>
+          <td class="text-left" ng-if="message.type == -1">Outro</td>
+          <td class="text-left">{{message.sender.name}}</td>
+          <td class="text-left">{{message.receiver.name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-if="loggedUser._id === message.sender._id || loggedUser.isSuper" ng-href="#/message/{{message._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger" ng-if="loggedUser._id === message.sender._id  || loggedUser.isSuper" ng-click="removeMessage(message)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-if="loggedUser._id === message.receiver._id && !loggedUser.isSuper" ng-click="showDetails(message)"><i class="fa fa-search"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

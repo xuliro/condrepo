@@ -1,0 +1,73 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/user">Novo Usuário</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">
+  <span> Filtros </span>
+  <select id="provider" class="form-control" ng-model="filtroProvider">
+    <option value='' selected>Autenticação</option>
+    <option ng-repeat="user in users | unique: 'provider'">{{user.provider}}</option>
+  </select>
+  <select id="co" class="form-control" ng-model="filtroC" ng-change="condomChanged(filtroC)">
+    <option value='' selected>Condominio</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper" value={{condom}}>{{condom.name}}</option>
+    <option ng-if="!loggedUser.isSuper" value={{loggedUser.condom}}>{{loggedUser.condom.name}}</option>
+  </select>
+  <select id="to" class="form-control" ng-model="filtroT" ng-change="towerChanged(filtroT)">
+    <option value='' selected>Torre</option>
+    <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
+  </select>
+  <select id="un" class="form-control" ng-model="filtroU" ng-change="unitChanged(filtroU)">
+    <option value='' selected>Unidade</option>
+    <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
+  </select>
+  <div class="checkbox-inline"><input type="checkbox" ng-model="filtroSuper" ng-false-value="">Gestor</div>
+  <div class="checkbox-inline"><input type="checkbox" ng-model="filtroAdmin" ng-false-value="">Síndico</div>
+  <div class="checkbox-inline"><input type="checkbox" ng-model="filtroBlocked" ng-false-value="">Bloqueado</div>
+</form>
+<p>Usuários cadastrados: {{users.length}}</p>
+<p class="text-info" ng-hide="users.length">Não há usuários cadastrados</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Nome</th>
+          <th class="text-left">Contato</th>
+          <th class="text-left">Email</th>
+          <th class="text-left">Login</th>
+          <th class="text-left">Condomínio</th>
+          <th class="text-left">Torre</th>
+          <th class="text-left">Unidade</th>
+          <th class="text-left">Autenticação</th>
+          <th class="text-center" ng-if="loggedUser.isSuper">Gestor</th>
+          <th class="text-center" ng-if="loggedUser.isAdmin">Síndico</th>
+          <th class="text-center">Bloq/OK</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="user in users | filter: filterUsers">
+          <td class="text-left">{{user.name}}</td>
+          <td class="text-left">{{user.contact}}</td>
+          <td class="text-left">{{user.email}}</td>
+          <td class="text-left">{{user.login}}</td>
+          <td class="text-left">{{user.condom.name}}</td>
+          <td class="text-left">{{user.tower.name}}</td>
+          <td class="text-left">{{user.unit.name}}</td>
+          <td class="text-left">{{user.provider}}</td>
+          <td class="text-center" ng-if="loggedUser.isSuper"><i class="fa fa-check text-success" ng-if="user.isSuper"></i><i class="fa fa-times text-danger" ng-if="!user.isSuper"></i></td>
+          <td class="text-center" ng-if="loggedUser.isAdmin"><i class="fa fa-check text-success" ng-if="user.isAdmin"></i><i class="fa fa-times text-danger" ng-if="!user.isAdmin"></i></td>
+          <td class="text-center"><i class="fa fa-ban text-danger" ng-if="user.isBlocked"></i><i class="fa fa-check text-success" ng-if="!user.isBlocked"></i></td>
+          <td class="text-right" ng-if="loggedUser.isSuper">
+            <a class="btn btn-primary" ng-href="#/user/{{user._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger" ng-click="removeUser(user)"><i class="fa fa-trash"></i></a>
+          </td>
+          <td class="text-right" ng-if="!loggedUser.isSuper && loggedUser.isAdmin">
+            <!-- Bellow link was removed because it will be a link into the user details page
+            <a class="btn btn-success" ng-href="#/user/{{user._id}}"><i class="fa fa-search"></i></a>
+            -->
+            <a class="btn btn-primary" ng-if="user.id === loggedUser.id" ng-href="#/user/{{user._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-success"ng-if="user.id != loggedUser.id" ng-click="showDetails(user)"><i class="fa fa-search"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

@@ -1,0 +1,15 @@
+﻿<h1 class="text-center">Usuário {{user.name}}
+  <i ng-if="user.provider=='github'" class="fa fa-github text-success" aria-hidden="true"></i>
+  <i ng-if="user.provider=='facebook'" class="fa fa-facebook-square text-primary" aria-hidden="true"></i>
+</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<!-- Special pages for each type of user -->
+<form ng-submit="salvaUser()">
+  <div id="spr" ng-if="loggedUser.isSuper == true" ng-include="'partials/spr/user.html'"></div>
+  <div id="adm" ng-if="loggedUser.isAdmin == true && loggedUser.isSuper == false" ng-include="'partials/adm/user.html'"></div>
+  <div id="cmm" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-include="'partials/cmm/user.html'"></div>
+  <div class="col-xs-12 col-sm-12 text-center">
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

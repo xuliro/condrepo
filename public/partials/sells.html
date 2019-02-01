@@ -1,0 +1,47 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/sell">Novo Anúncio</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por título">
+  <span> Filtros </span>
+  <select id="co" class="form-control" ng-model="filtroC" ng-change="condomSellChanged(filtroC)">
+    <option value='' selected>Condominio</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+  </select>
+  <select id="us" class="form-control" ng-model="filtroU" ng-change="userSellChanged(filtroU)">
+    <option value='' selected>Usuário</option>
+    <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+  </select>
+</form>
+<p>Anúncios cadastrados: {{sells.length}}</p>
+<p class="text-info" ng-hide="sells.length">Não há anúncios cadastrados</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Título</th>
+          <th class="text-left">Valor</th>
+          <th class="text-left">Detalhes</th>
+          <th class="text-left">Forma de contato</th>
+          <th class="text-left">Data de inclusão</th>
+          <th class="text-left">Condomínio</th>
+          <th class="text-left">Usuário</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="sell in sells | filter: filterSells">
+          <td class="text-left">{{sell.title}}</td>
+          <td class="text-left">{{sell.value}}</td>
+          <td class="text-left">{{sell.details}}</td>
+          <td class="text-left">{{sell.contact}}</td>
+          <td class="text-left">{{sell.inclusion | date:'dd/MM/yyyy'}}</td>
+          <td class="text-left">{{sell.condom.name}}</td>
+          <td class="text-left">{{sell.user.name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-if="loggedUser._id === sell.user._id || loggedUser.isSuper" ng-href="#/sell/{{sell._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-success" ng-if="loggedUser._id != sell.user._id && !loggedUser.isSuper" ng-click="showDetails(sell)"><i class="fa fa-search"></i></a>
+            <a class="btn btn-danger" ng-if="loggedUser._id === sell.user._id || loggedUser.isSuper || loggedUser.isAdmin" ng-click="removeSell(sell)"><i class="fa fa-trash"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

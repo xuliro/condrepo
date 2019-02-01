@@ -1,0 +1,90 @@
+<html ng-app="prototipo">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Prototipo 1.0</title>
+        <!-- build:css css/index.min.css -->
+        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.css">
+        <!-- endbuild -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body class="container">
+        <div class="text-right" ng-if="'<%=logged%>' != ''">
+          <p>
+            Bem vindo <span><%=logged%>. </span>
+            <a href="/logout">Logout</a>
+          </p>
+        </div>
+        <div ng-view></div>
+        <!-- build:js js/index.min.js -->
+        <script src="vendor/angular/angular.js"></script>
+        <script src="vendor/angular-route/angular-route.js"></script>
+        <script src="vendor/angular-resource/angular-resource.js"></script>
+        <script src="js/main.js"></script>
+        <!-- Services -->
+        <script src="js/services/AuthService.js"></script>
+        <script src="js/services/CondomService.js"></script>
+        <script src="js/services/TowerService.js"></script>
+        <script src="js/services/UnitService.js"></script>
+        <script src="js/services/AreaService.js"></script>
+        <script src="js/services/EventService.js"></script>
+        <script src="js/services/VisitorService.js"></script>
+        <script src="js/services/UserService.js"></script>
+        <script src="js/services/MessageService.js"></script>
+        <script src="js/services/BillService.js"></script>
+        <script src="js/services/SellService.js"></script>
+        <script src="js/services/WorkerService.js"></script>
+        <script src="js/services/ServerService.js"></script>
+        <script src="js/services/PossessionService.js"></script>
+        <script src="js/services/ArchiveService.js"></script>
+        <!-- Controllers -->
+        <script src="js/controllers/HomeController.js"></script>      
+        <!-- Condom -->
+        <script src="js/controllers/CondomsController.js"></script>
+        <script src="js/controllers/CondomController.js"></script>
+        <!-- Condom -->
+        <script src="js/controllers/TowersController.js"></script>
+        <script src="js/controllers/TowerController.js"></script>
+        <!-- Unit -->
+        <script src="js/controllers/UnitsController.js"></script>
+        <script src="js/controllers/UnitController.js"></script>
+        <!-- Area -->
+        <script src="js/controllers/AreasController.js"></script>
+        <script src="js/controllers/AreaController.js"></script>
+        <!-- Event -->
+        <script src="js/controllers/EventsController.js"></script>
+        <script src="js/controllers/EventController.js"></script>
+        <!-- Visitor -->
+        <script src="js/controllers/VisitorsController.js"></script>
+        <script src="js/controllers/VisitorController.js"></script>
+        <!-- User -->
+        <script src="js/controllers/UsersController.js"></script>
+        <script src="js/controllers/UserController.js"></script>
+        <!-- Possesion -->
+        <script src="js/controllers/PossessionsController.js"></script>
+        <script src="js/controllers/PossessionController.js"></script>
+        <!-- Message -->
+        <script src="js/controllers/MessagesController.js"></script>
+        <script src="js/controllers/MessageController.js"></script>
+        <!-- Bill -->
+        <script src="js/controllers/BillsController.js"></script>
+        <script src="js/controllers/BillController.js"></script>
+        <!-- Sell -->
+        <script src="js/controllers/SellsController.js"></script>
+        <script src="js/controllers/SellController.js"></script>
+        <!-- Worker -->
+        <script src="js/controllers/WorkersController.js"></script>
+        <script src="js/controllers/WorkerController.js"></script>
+        <!-- Server -->
+        <script src="js/controllers/ServersController.js"></script>
+        <script src="js/controllers/ServerController.js"></script>
+        <!-- Server -->
+        <script src="js/controllers/ArchivesController.js"></script>
+        <script src="js/controllers/ArchiveController.js"></script>
+        <!-- Interceptor -->
+        <script src="js/services/InterceptorService.js"></script>
+        <!-- endbuild -->
+        <script src="vendor/angular-filter/dist/angular-filter.min.js"></script>
+    </body>
+</html>

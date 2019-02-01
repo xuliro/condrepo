@@ -1,0 +1,48 @@
+<h1 class="text-center">Evento</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaEvent()">
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-2" for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="event.name"></label>
+      <label class="col-xs-12 col-sm-8" for="description">Descrição <input type="text" class="form-control form-inline" id="description" name="description" required ng-model="event.description"></label>
+      <label class="col-xs-12 col-sm-2" for="date">Data <input type="date" class="form-control form-inline" id="date" name="date" required ng-model="event.date"></label>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label>Associar a: </label>
+      <div class="form-inline">
+        <select id="user" class="form-control" ng-model="filtroU" ng-change="userEventChanged()">
+          <option ng-if="event.user == null || event.user == '' || event.user == undefined" value='' selected>Usuário</option>
+          <option ng-if="event.user != null && event.user != '' && event.user != undefined" value='' selected>{{event.user.name}}</option>
+          <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+        </select>
+        <select id="area" class="form-control" ng-model="filtroA" ng-change="areaEventChanged()">
+          <option ng-if="event.area == null || event.area == '' || event.area == undefined" value='' selected>Área</option>
+          <option ng-if="event.area != null && event.area != '' && event.area != undefined" value='' selected>{{event.area.name}}</option>
+          <option ng-repeat="area in areas | unique: 'area._id'" value='{{area}}'>{{area.name}}</option>
+        </select>
+      </div>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-12" ng-if="visitors.length > 0">
+    <label>Convidados:</label>
+      <table class="table table-hover">
+          <tr>
+              <th class="text-left col-sm-5">Nome</th>
+              <th class="text-left col-sm-3">Contato</th>
+              <th class="text-left col-sm-2">Documento</th>
+              <th class="text-right col-sm-2">Ações</th>
+          </tr>
+          <tr ng-repeat="visitor in visitors">
+            <td class="text-left">{{visitor.name}}</td>
+            <td class="text-left">{{visitor.contact}}</td>
+            <td class="text-left">{{visitor.document}}</td>
+  			      <td class="text-right">
+                <a class="btn btn-primary" ng-href="#/visitor/{{visitor._id}}"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-danger" ng-controller="VisitorsController" ng-click="removeVisitor(visitor)"><i class="fa fa-trash"></i></a>
+              </td>
+          </tr>
+      </table>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-12 text-center">
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

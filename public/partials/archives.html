@@ -1,0 +1,37 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/archive">Novo Arquivo</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por título">
+  <span> Filtros </span>
+  <select id="co" class="form-control" ng-model="filtroC" ng-change="condomArchiveChanged(filtroC)">
+    <option value='' selected>Condominio</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+  </select>
+</form>
+<p>Arquivos cadastrados: {{archives.length}}</p>
+<p class="text-info" ng-hide="archives.length">Não há arquivos cadastrados</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Título</th>
+          <th class="text-left">Detalhes</th>
+          <th class="text-left">Data de inclusão</th>
+          <th class="text-left">Condomínio</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="archive in archives | filter: filterArchives">
+          <td class="text-left">{{archive.brief}}</td>
+          <td class="text-left">{{archive.details}}</td>
+          <td class="text-left">{{archive.inclusion | date:'dd/MM/yyyy'}}</td>
+          <td class="text-left">{{archive.condom.name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-href="#/archive/{{archive._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-click="removeArchive(archive)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-click="showDetails(archive)"><i class="fa fa-search"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

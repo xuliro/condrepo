@@ -1,0 +1,23 @@
+<h1 class="text-center">Arquivo</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaArchive()">
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-3" for="brief">Título <input type="text" class="form-control form-inline" id="brief" name="brief" required ng-model="archive.brief"></label>
+      <label class="col-xs-12 col-sm-9" for="details">Detalhes <input type="text" class="form-control form-inline" id="details" name="details" required ng-model="archive.details"></label>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label>Associar a: </label>
+      <div class="form-inline">
+        <select id="co" class="form-control" ng-model="filtroC" ng-change="coArchiveChanged()">
+          <option ng-if="archive.condom == null || archive.condom == '' || archive.condom == undefined" value='' selected>Condomínio</option>
+          <option ng-if="archive.condom != null && archive.condom != '' && archive.condom != undefined" value='' selected>{{archive.condom.name}}</option>
+          <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+        </select>
+      </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+    <p></p>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

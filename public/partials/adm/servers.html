@@ -1,0 +1,18 @@
+<span class="text-primary">Prestadores de serviço cadastrados: {{servers.length}}</span>
+<div ng-controller="ServersController">
+  <table class="table table-hover">
+    <tr>
+        <th class="text-center col-xs-12 col-sm-2">Nome</th>
+        <th class="text-center col-xs-12 col-sm-3">Categoria</th>
+        <th class="text-center col-xs-12 col-sm-1">Detalhes</th>
+    </tr>
+    <tr ng-repeat="server in servers">
+        <td class="text-center col-xs-12 col-sm-2">{{server.name}}</td>
+        <td class="text-center col-xs-12 col-sm-3">{{server.category}}</td>
+        <td class="text-center col-xs-12 col-sm-1">
+          <a class="btn btn-primary" ng-href="#/server/{{server._id}}"><i class="fa fa-pencil"></i></a>
+          <a class="btn btn-danger" ng-click="removeServer(server)"><i class="fa fa-trash"></i></a>
+        </td>
+    </tr>
+  </table>
+</div>

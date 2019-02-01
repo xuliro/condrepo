@@ -1,0 +1,43 @@
+</div><!--
+TODO:
+- Maintenance for condoms, towers, units, areas
+- Checklists for events
+- Surveys for users
+-->
+<div class="jumbotron">
+    <h1 class="text-center">Welcome to prototipo Project</h1>
+</div>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<div class="col-xs-12 col-sm-12" ng-if="loggedUser.isBlocked">
+  <h4>ATENÇÃO: Usuário bloqueado, solicite a liberação ao responsável pelos cadastros em seu condomínio ou ao gestor do sistema</h4>
+</div>
+<!-- Special pages for each type of user -->
+<div id="spr" ng-if="loggedUser.isSuper == true" ng-include="'partials/spr/home.html'"></div>
+<div ng-if="!loggedUser.isBlocked && (loggedUser.condom != undefined && loggedUser.condom != null)">
+  <div id="adm" ng-if="loggedUser.isAdmin == true && loggedUser.isSuper == false" ng-include="'partials/adm/home.html'"></div>
+  <div id="cmm" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin && loggedUser.condom != undefined" ng-include="'partials/cmm/home.html'"></div>
+</div>
+<!-- in case of unregistered user -->
+<div ng-if="(loggedUser.condom == undefined || loggedUser.condom == null) && !saved && !loggedUser.isSuper">
+  <h4>Usuário não associado a nenhum condomínio, se deseja se cadastrar informe o código do seu condomínio.</h4>
+  <form ng-submit="cadastrar(code)" ng-if="!condomNewUser">
+    <div class="form-group form-inline text-center">
+        <label for="code">Código <input type="text" class="form-control form-inline" id="code" name="code" required ng-model="code"></label>
+        <button type="submit" class="btn btn-primary">Próximo</button>
+        <button ng-click="back()" class="btn btn-default">Voltar</button>
+    </div>
+  </form>
+  <div class="form-inline form-group text-center" ng-if="condomNewUser">
+    <label>Associar a: </label>
+    <select id="homeTower" class="form-control" ng-model="filtroT" ng-change="toUserChanged(filtroT)">
+      <option value='' selected>Torre</option>
+      <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
+    </select>
+    <select id="un" class="form-control" ng-model="filtroU" ng-change="unUserChanged(filtroU)">
+      <option value='' selected>Unidade</option>
+      <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
+    </select>
+    <button ng-click="saveLoggedUser(condomNewUser,filtroT,filtroU)" ng-if="unitNewUser" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</div>

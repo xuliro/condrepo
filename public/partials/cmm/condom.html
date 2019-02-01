@@ -1,0 +1,12 @@
+<div class="col-xs-12 col-sm-12">
+  <h4 class="text-primary" ng-if="loggedUser.condom != undefined"><i class="fa fa-building"></i> Código {{loggedUser.condom.code}}: {{loggedUser.condom.name}} - {{loggedUser.tower.name}} - Unidade {{loggedUser.unit.name}}</h4>
+  <h5 class="text-primary" ng-if="loggedUser.condom != undefined">{{loggedUser.condom.address}}</h5>
+  <h5 class="text-primary" ng-if="loggedUser.condom != undefined && condom.syndic.name != null">Síndico: {{condom.syndic.name}} <a class="btn btn-success" ng-click="showSyndicDetails(condom.syndic)"><i class="fa fa-search"></i></a></h5>
+</div>
+<p></p>
+<div id="buttons" class="col-xs-12 col-sm-12" ng-include="'partials/cmm/buttons.html'"></div>
+<div id="areas" class="table-responsive col-xs-12 col-sm-6" ng-if="areas.length > 0" ng-include="'partials/cmm/areas.html'"></div>
+<div class="col-xs-12 col-sm-12">
+  <div id="workers" class="table-responsive col-xs-12 col-sm-6" ng-if="workers.length > 0" ng-include="'partials/cmm/workers.html'"></div>
+  <div id="servers" class="table-responsive col-xs-12 col-sm-6" ng-if="servers.length > 0" ng-include="'partials/cmm/servers.html'"></div>
+</div>

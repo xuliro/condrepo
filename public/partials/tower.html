@@ -1,0 +1,72 @@
+<h1 class="text-center">Torre</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaTower()">
+    <div class="form-group text-center">
+        <p></p>
+        <label for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="tower.name"></label>
+    </div>
+    <div class="table-responsive col-xs-12 col-sm-12">
+      <div class="table-responsive col-xs-12 col-sm-6" ng-if="tower.units.length > 0">
+          <table class="table table-hover">
+              <tr>
+                  <th>Unidade</th>
+                  <th>Fração Ideal</th>
+                  <th class="text-right">Ação</th>
+              </tr>
+              <tr ng-repeat="unit in tower.units">
+                  <td>{{unit.name}}</td>
+                  <td>{{unit.fraction}}</td>
+      			      <td class="text-right">
+                    <a class="btn btn-primary" ng-href="#/unit/{{unit._id}}"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-danger" ng-click="removeUnitFromTower(unit)"><i class="fa fa-trash"></i></a>
+                  </td>
+              </tr>
+          </table>
+      </div>
+      <div class="table-responsive col-xs-12 col-sm-6">
+        <label class="form-inline" for="newUnit">Nova Unidade <input type="text" class="form-control" id="newUnit" name="newUnit" ng-model="newUnit">
+          <a class="btn btn-primary" ng-click="addUnitToTower(newUnit)"><i class="fa fa-plus"></i></a>
+        </label>
+    </div>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-6" ng-if="areas.length > 0">
+      <label>Áreas comuns desta torre:</label>
+      <table class="table table-hover">
+          <tr>
+              <th class="text-left">Nome</th>
+              <th class="text-left">Descrição</th>
+              <th class="text-left">Capacidade</th>
+              <th class="text-right">Ação</th>
+          </tr>
+          <tr ng-repeat="area in areas">
+              <td class="text-left">{{area.name}}</td>
+              <td class="text-left">{{area.description}}</td>
+              <td class="text-left">{{area.capacity}}</td>
+  			      <td class="text-right">
+                  <a class="btn btn-primary" ng-href="#/area/{{area._id}}"><i class="fa fa-pencil"></i></a>
+              </td>
+          </tr>
+      </table>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-6" ng-if="workers.length > 0">
+      <label>Funcionários desta torre:</label>
+      <table class="table table-hover">
+          <tr>
+              <th class="text-left">Nome</th>
+              <th class="text-left">Contato</th>
+              <th class="text-right">Ação</th>
+          </tr>
+          <tr ng-repeat="worker in workers | filter: {unit: null}">
+              <td class="text-left">{{worker.name}}</td>
+              <td class="text-left">{{worker.contact}}</td>
+  			      <td class="text-right">
+                <a class="btn btn-primary" ng-href="#/worker/{{worker._id}}"><i class="fa fa-pencil"></i></a>
+              </td>
+          </tr>
+      </table>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-12 text-center">
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

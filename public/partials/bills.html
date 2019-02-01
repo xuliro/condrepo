@@ -1,0 +1,53 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/bill">Nova Despesa</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por descrição">
+  <span> Filtros </span>
+  <select id="co" class="form-control" ng-model="filtroC" ng-change="condomBillChanged(filtroC)">
+    <option value='' selected>Condominio</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+  </select>
+  <select id="to" class="form-control" ng-model="filtroT" ng-change="towerBillChanged(filtroT)">
+    <option value='' selected>Torre</option>
+    <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
+  </select>
+  <select id="un" class="form-control" ng-model="filtroU" ng-change="unitBillChanged(filtroU)">
+    <option value='' selected>Unidade</option>
+    <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
+  </select>
+</form>
+<p>Despesas cadastrados: {{bills.length}}</p>
+<p class="text-info" ng-hide="bills.length">Não há despesas cadastradas</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Descrição</th>
+          <th class="text-left">Valor</th>
+          <th class="text-left">Condomínio</th>
+          <th class="text-left">Torre</th>
+          <th class="text-left">Unidade</th>
+          <th class="text-left">Inclusão</th>
+          <th class="text-left">Vencimento</th>
+          <th class="text-left">Pago</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="bill in bills | filter: filterBills">
+          <td class="text-left">{{bill.description}}</td>
+          <td class="text-left">R$ {{bill.value}}</td>
+          <td class="text-left">{{bill.condom.name}}</td>
+          <td class="text-left">{{bill.tower.name}}</td>
+          <td class="text-left">{{bill.unit.name}}</td>
+          <td class="text-left">{{bill.inclusion | date:'dd/MM/yyyy'}}</td>
+          <td class="text-left">{{bill.due | date:'dd/MM/yyyy'}}</td>
+          <td class="text-center"><i class="fa fa-ban text-danger" ng-if="!bill.isPaid"></i><i class="fa fa-check text-success" ng-if="bill.isPaid"></i></td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-href="#/bill/{{bill._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-click="removeBill(bill)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-click="showDetails(bill)"><i class="fa fa-search"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

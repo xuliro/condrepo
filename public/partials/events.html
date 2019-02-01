@@ -1,0 +1,43 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline" ng-controller="EventsController">
+  <a class="btn btn-primary" ng-href="#/event">Novo Evento</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">
+  <span> Filtros </span>
+  <select id="user" class="form-control" ng-model="filtroU" ng-change="userEventChanged(filtroU)">
+    <option value='' selected>Usuário</option>
+    <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+  </select>
+  <select id="area" class="form-control" ng-model="filtroA" ng-change="areaEventChanged(filtroA)">
+    <option value='' selected>Área</option>
+    <option ng-repeat="area in areas | unique: 'area._id'" value='{{area}}'>{{area.name}}</option>
+  </select>
+</form>
+<p>Eventos cadastrados: {{events.length}}</p>
+<p class="text-info" ng-hide="events.length">Não há eventos cadastrados</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Nome</th>
+          <th class="text-left">Descrição</th>
+          <th class="text-left">Data</th>
+          <th class="text-left">Usuário</th>
+          <th class="text-left">Área</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="event in events | filter: filterEvents">
+          <td class="text-left">{{event.name}}</td>
+          <td class="text-left">{{event.description}}</td>
+          <td class="text-left">{{event.date | date:'dd/MM/yyyy'}}</td>
+          <td class="text-left">{{event.user.name}}</td>
+          <td class="text-left">{{event.area.name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-if="loggedUser._id === event.user._id || loggedUser.isSuper" ng-href="#/event/{{event._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-success" ng-if="loggedUser._id != event.user._id && !loggedUser.isSuper" ng-click="showDetails(event)"><i class="fa fa-search"></i></a>
+            <a class="btn btn-danger" ng-if="loggedUser._id === event.user._id || loggedUser.isAdmin || loggedUser.isSuper" ng-click="removeEvent(event)"><i class="fa fa-trash"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

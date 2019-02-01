@@ -1,0 +1,11 @@
+<h1 class="text-center">Condominio</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaCondom()">
+  <div id="spr" ng-if="loggedUser.isSuper == true" ng-include="'partials/spr/condom.html'"></div>
+  <div id="adm" ng-if="loggedUser.isAdmin == true && loggedUser.isSuper == false" ng-include="'partials/adm/condom.html'"></div>
+  <div id="cmm" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-include="'partials/cmm/condom.html'"></div>
+  <div class="table-responsive col-xs-12 col-sm-12 text-center">
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

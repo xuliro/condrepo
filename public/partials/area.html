@@ -1,0 +1,47 @@
+<h1 class="text-center">Área Comum</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaArea()">
+  <div class="col-xs-12 col-sm-12 text-center">
+    <label class="col-xs-12 col-sm-2" for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="area.name"></label>
+    <label class="col-xs-12 col-sm-9" for="description">Descrição <input type="text" class="form-control form-inline" id="description" name="description" required ng-model="area.description"></label>
+    <label class="col-xs-12 col-sm-1" for="capacity">Capacidade <input type="text" class="form-control form-inline" id="capacity" name="capacity" required ng-model="area.capacity"></label>
+  </div>
+  <div class="form-inline col-xs-12 col-sm-12 text-center">
+    <label>Associar a: </label>
+    <select id="co" class="form-control" ng-model="filtroC" ng-change="coAreaChanged()">
+      <option ng-if="area.condom == null || area.condom == '' || area.condom == undefined" value='' selected>Condominio</option>
+      <option ng-if="area.condom != null && area.condom != '' && area.condom != undefined" value='' selected>{{area.condom.name}}</option>
+      <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    </select>
+    <select id="to" class="form-control" ng-model="filtroT" ng-change="toAreaChanged()">
+      <option ng-if="area.tower == null || area.tower == '' || area.tower == undefined" value='' selected>Torre</option>
+      <option ng-if="area.tower != null && area.tower != '' && area.tower != undefined" value='' selected>{{area.tower.name}}</option>
+      <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
+    </select>
+  </div>
+  <p></p>
+  <div class="table-responsive col-xs-12 col-sm-12" ng-if="events.length > 0">
+      <label>Eventos:</label>
+      <table class="table table-hover">
+          <tr>
+              <th class="text-left">Evento</th>
+              <th class="text-left">Data</th>
+              <th class="text-left">Responsável</th>
+              <th class="text-right">Ação</th>
+          </tr>
+          <tr ng-repeat="event in events">
+              <td class="text-left">{{event.name}}</td>
+              <td class="text-left">{{event.date | date:'dd/MM/yyyy'}}</td>
+              <td class="text-left">{{event.user.name}}</td>
+  			      <td class="text-right">
+                <a class="btn btn-primary" ng-if="loggedUser._id === event.user._id || loggedUser.isSuper" ng-href="#/event/{{event._id}}"><i class="fa fa-pencil"></i></a>
+                <a class="btn btn-success" ng-if="loggedUser._id != event.user._id && !loggedUser.isSuper" ng-controller="EventsController" ng-click="showDetails(event)"><i class="fa fa-search"></i></a>
+              </td>
+          </tr>
+      </table>
+  </div>
+  <div class="table-responsive col-xs-12 col-sm-12 text-center">
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

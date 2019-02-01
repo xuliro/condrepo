@@ -1,0 +1,13 @@
+<label>Torres:</label>
+<table class="table table-hover">
+    <tr>
+        <th class="text-left">Torre</th>
+        <th class="text-right">Ação</th>
+    </tr>
+    <tr ng-repeat="tower in condom.towers">
+        <td class="text-left">{{tower.name}}</td>
+        <td class="text-right">
+          <a class="btn btn-primary" ng-href="#/tower/{{tower._id}}"><i class="fa fa-pencil"></i></a>
+        </td>
+    </tr>
+</table>

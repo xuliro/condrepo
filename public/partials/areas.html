@@ -1,0 +1,42 @@
+<div class="jumbotron">
+    <h1 class="text-center">Prototipo Project</h1>
+</div>
+<form class="form-inline">
+  <a class="btn btn-primary" ng-href="#/area">Nova Área Comum</a>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">
+  <span> Filtros </span>
+  <select id="co" class="form-control" ng-model="filtroC" ng-change="condomAreaChanged(filtroC)">
+    <option value='' selected>Condominio</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+  </select>
+  <select id="to" class="form-control" ng-model="filtroT" ng-change="towerAreaChanged(filtroT)">
+    <option value='' selected>Torre</option>
+    <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
+  </select>
+</form>
+<p>Áreas comuns cadastradas: {{areas.length}}</p>
+<p class="text-info" ng-hide="areas.length">Não há áreas comuns cadastradas</p>
+<div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+          <th class="text-left">Nome</th>
+          <th class="text-left">Descrição</th>
+          <th class="text-left">Capacidade</th>
+          <th class="text-left">Condomínio</th>
+          <th class="text-left">Torre</th>
+          <th class="text-right">Ações</th>
+      </tr>
+      <tr ng-repeat="area in areas | filter: filterAreas">
+          <td class="text-left">{{area.name}}</td>
+          <td class="text-left">{{area.description}}</td>
+          <td class="text-left">{{area.capacity}}</td>
+          <td class="text-left">{{area.condom.name}}</td>
+          <td class="text-left">{{area.tower.name}}</td>
+          <td class="text-right">
+            <a class="btn btn-primary" ng-href="#/area/{{area._id}}"><i class="fa fa-pencil"></i></a>
+            <a class="btn btn-danger" ng-click="removeArea(area)"><i class="fa fa-trash"></i></a>
+          </td>
+      </tr>
+    </table>
+</div>
+<button ng-click="back()" class="btn btn-default">Voltar</button>

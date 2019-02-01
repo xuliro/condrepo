@@ -1,0 +1,25 @@
+<h1 class="text-center">Prestador de Serviço</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaServer()">
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-3" for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="server.name"></label>
+      <label class="col-xs-12 col-sm-2" for="category">Categoria <input type="text" class="form-control form-inline" id="category" name="category" required ng-model="server.category"></label>
+      <label class="col-xs-12 col-sm-5" for="description">Descrição <input type="textArea" class="form-control form-inline" id="description" name="description" required ng-model="server.description"></label>
+      <label class="col-xs-12 col-sm-2" for="contact">Contato <input type="text" class="form-control form-inline" id="contact" name="contact" required ng-model="server.contact"></label>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label>Associar a: </label>
+      <div class="form-inline">
+        <select id="co" class="form-control" ng-model="filtroC" ng-change="coServerChanged()">
+          <option ng-if="server.condom == null || server.condom == '' || server.condom == undefined" value='' selected>Condominio</option>
+          <option ng-if="server.condom != null && server.condom != '' && server.condom != undefined" value='' selected>{{server.condom.name}}</option>
+          <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+        </select>
+      </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+    <p></p>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

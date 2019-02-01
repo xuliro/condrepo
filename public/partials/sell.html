@@ -1,0 +1,30 @@
+<h1 class="text-center">Anúncio</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaSell()">
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-3" for="title">Título <input type="text" class="form-control form-inline" id="title" name="title" required ng-model="sell.title"></label>
+      <label class="col-xs-12 col-sm-5" for="details">Detalhes <input type="text" class="form-control form-inline" id="details" name="details" required ng-model="sell.details"></label>
+      <label class="col-xs-12 col-sm-2" for="contact">Contato (Tel/Email/Unidade) <input type="text" class="form-control form-inline" id="contact" name="contact" required ng-model="sell.contact"></label>
+      <label class="col-xs-12 col-sm-2" for="value">Valor R$<input type="number" class="form-control form-inline" id="value" name="value" required ng-model="sell.value"></label>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label>Associar a: </label>
+      <div class="form-inline">
+        <select id="co" class="form-control" ng-model="filtroC" ng-change="coSellChanged()">
+          <option ng-if="sell.condom == null || sell.condom == '' || sell.condom == undefined" value='' selected>Condomínio</option>
+          <option ng-if="sell.condom != null && sell.condom != '' && sell.condom != undefined" value='' selected>{{sell.condom.name}}</option>
+          <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+        </select>
+        <select id="us" class="form-control" ng-model="filtroU" ng-change="userSellChanged()">
+          <option ng-if="sell.user == null || sell.user == '' || sell.user == undefined" value='' selected>Usuário</option>
+          <option ng-if="sell.user != null && sell.user != '' && sell.user != undefined" value='' selected>{{sell.user.name}}</option>
+          <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+        </select>
+      </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+    <p></p>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>

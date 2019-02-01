@@ -1,0 +1,53 @@
+<h1 class="text-center">Mensagem</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salvaMessage()">
+  <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-3" for="title">Título <input type="text" class="form-control form-inline" id="title" name="title" required ng-model="message.title"></label>
+      <div class="form-inline col-xs-12 col-sm-2">
+        <label for="title">Tipo de Mensagem
+          <select id="type" class="form-control form-inline text-center" ng-model="message.type">
+            <option value='null' selected>Tipo</option>
+            <option value='0'>Comunicado</option>
+            <option value='1'>Alerta</option>
+            <option value='2'>Entrega</option>
+            <option value='3'>Portaria</option>
+            <option value='4'>Segurança</option>
+            <option value='5'>Entre Moradores</option>
+            <option value='6'>Sugestão de pauta</option>
+            <option value='7'>Reclamação</option>
+            <option value='8'>Denúncia</option>
+            <option value='9'>Solicitação</option>
+            <option value='-1'>Outro</option>
+          </select>
+        </label>
+      </div>
+      <label class="col-xs-12 col-sm-7" for="more">Informações Adicionais
+      <input type="text" class="form-control form-inline" id="more" name="more" ng-model="message.more"></label>
+    </div>
+    <div class="col-xs-12 col-sm-12 text-center">
+      <label class="col-xs-12 col-sm-8" for="message">Mensagem <input type="text" class="form-control form-inline" id="message" name="message" required ng-model="message.message"></label>
+      <div class="col-xs-12 col-sm-2">
+        <label>Remetente:
+          <select id="from" class="form-control" ng-model="filtroS" ng-change="senderMessageChanged()" required>
+            <option ng-if="message.sender == null || message.sender == '' || message.sender == undefined" value='' selected>Remetente</option>
+            <option ng-if="message.sender != null && message.sender != '' && message.sender != undefined" value='' selected>{{message.sender.name}}</option>
+            <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+          </select>
+        </label>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <label>Destinatário:
+          <select id="to" class="form-control" ng-model="filtroR" ng-change="receiverMessageChanged()" required>
+            <option ng-if="message.receiver == null || message.receiver == '' || message.receiver == undefined" value='' selected>Destinatário</option>
+            <option ng-if="message.receiver != null && message.receiver != '' && message.receiver != undefined" value='' selected>{{message.receiver.name}}</option>
+            <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+          </select>
+        </label>
+      </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 text-center">
+    <p></p>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button ng-click="back()" class="btn btn-default">Voltar</button>
+  </div>
+</form>
