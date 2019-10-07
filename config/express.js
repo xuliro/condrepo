@@ -9,7 +9,7 @@ var cors = require('cors');
 
 module.exports = function () {
   var app = express();
-  app.set('port', 3000);
+  app.set('port', 80);
   app.use(cors());
   app.use(express.static('./public'));
   app.set('view engine', 'ejs');
