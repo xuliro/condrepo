@@ -82,7 +82,6 @@ module.exports = function () {
   }, function (req, login, password, done) {
     process.nextTick(function () {
       var pwd = md5(password);
-      console.log("PWD " + pwd);
       User.findOne({
           'login': login,
           'password': pwd
