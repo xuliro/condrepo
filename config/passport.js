@@ -4,7 +4,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var mongoose = require('mongoose');
 var md5 = require('md5');
-var ADDRESS = 'http://192.168.110.21:3000';
+var ADDRESS = 'https://condrepo.herokuapp.com';
 module.exports = function () {
   var User = mongoose.model('User');
   passport.use(new GitHubStrategy({
