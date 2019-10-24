@@ -1,5 +1,5 @@
-﻿angular.module('prototipo',['ngRoute', 'ngResource', 'angular.filter'])
-    .config(function($routeProvider, $httpProvider){
+﻿angular.module('prototipo', ['ngRoute', 'ngResource', 'angular.filter'])
+    .config(function ($routeProvider, $httpProvider) {
 
         $httpProvider.interceptors.push('meuInterceptor');
 
@@ -16,7 +16,7 @@
             templateUrl: 'partials/condoms.html',
             controller: 'CondomsController'
         });
-         $routeProvider.when('/condom', {
+        $routeProvider.when('/condom', {
             templateUrl: 'partials/condom.html',
             controller: 'CondomController'
         });
@@ -60,7 +60,7 @@
             templateUrl: 'partials/messages.html',
             controller: 'MessagesController'
         });
-         $routeProvider.when('/message', {
+        $routeProvider.when('/message', {
             templateUrl: 'partials/message.html',
             controller: 'MessageController'
         });
@@ -73,7 +73,7 @@
             templateUrl: 'partials/possessions.html',
             controller: 'PossessionsController'
         });
-         $routeProvider.when('/possession', {
+        $routeProvider.when('/possession', {
             templateUrl: 'partials/possession.html',
             controller: 'PossessionController'
         });
@@ -86,7 +86,11 @@
             templateUrl: 'partials/bills.html',
             controller: 'BillsController'
         });
-         $routeProvider.when('/bill', {
+        $routeProvider.when('/uploadFile', {
+            templateUrl: 'partials/bill.html',
+            controller: 'BillController'
+        });
+        $routeProvider.when('/bill', {
             templateUrl: 'partials/bill.html',
             controller: 'BillController'
         });
@@ -99,7 +103,7 @@
             templateUrl: 'partials/sells.html',
             controller: 'SellsController'
         });
-         $routeProvider.when('/sell', {
+        $routeProvider.when('/sell', {
             templateUrl: 'partials/sell.html',
             controller: 'SellController'
         });
@@ -112,7 +116,7 @@
             templateUrl: 'partials/workers.html',
             controller: 'WorkersController'
         });
-         $routeProvider.when('/worker', {
+        $routeProvider.when('/worker', {
             templateUrl: 'partials/worker.html',
             controller: 'WorkerController'
         });
@@ -125,7 +129,7 @@
             templateUrl: 'partials/servers.html',
             controller: 'ServersController'
         });
-         $routeProvider.when('/server', {
+        $routeProvider.when('/server', {
             templateUrl: 'partials/server.html',
             controller: 'ServerController'
         });
@@ -138,7 +142,7 @@
             templateUrl: 'partials/areas.html',
             controller: 'AreasController'
         });
-         $routeProvider.when('/area', {
+        $routeProvider.when('/area', {
             templateUrl: 'partials/area.html',
             controller: 'AreaController'
         });
@@ -151,7 +155,7 @@
             templateUrl: 'partials/events.html',
             controller: 'EventsController'
         });
-         $routeProvider.when('/event', {
+        $routeProvider.when('/event', {
             templateUrl: 'partials/event.html',
             controller: 'EventController'
         });
@@ -164,7 +168,7 @@
             templateUrl: 'partials/visitors.html',
             controller: 'VisitorsController'
         });
-         $routeProvider.when('/visitor', {
+        $routeProvider.when('/visitor', {
             templateUrl: 'partials/visitor.html',
             controller: 'VisitorController'
         });
@@ -177,7 +181,7 @@
             templateUrl: 'partials/archives.html',
             controller: 'ArchivesController'
         });
-         $routeProvider.when('/archive', {
+        $routeProvider.when('/archive', {
             templateUrl: 'partials/archive.html',
             controller: 'ArchiveController'
         });
@@ -190,5 +194,7 @@
             templateUrl: 'partials/auth.html'
         });
         //Default route
-        $routeProvider.otherwise({redirectTo: '/auth'});
+        $routeProvider.otherwise({
+            redirectTo: '/auth'
+        });
     });
