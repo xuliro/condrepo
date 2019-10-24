@@ -33,6 +33,10 @@ module.exports = function () {
     isPaid: {
       type: Boolean,
       default: false
+    },
+    boleto: {
+      type: String,
+      default: null
     }
   });
   schema.plugin(findOrCreate);
