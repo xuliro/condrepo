@@ -20,7 +20,7 @@
     "method-override": "^2.3.6",
     "mongo-sanitize": "^1.0.0",
     "mongodb": "^2.2.10",
-    "mongoose": "^4.6.3",
+    "mongoose": "^5.7.5",
     "mongoose-findorcreate": "^0.1.2",
     "multer": "^1.4.2",
     "multer-gridfs-storage": "^3.3.0",
