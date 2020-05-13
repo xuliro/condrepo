@@ -12,12 +12,14 @@
         <select id="user" class="form-control" ng-model="filtroU" ng-change="userEventChanged()">
           <option ng-if="event.user == null || event.user == '' || event.user == undefined" value='' selected>Usuário</option>
           <option ng-if="event.user != null && event.user != '' && event.user != undefined" value='' selected>{{event.user.name}}</option>
-          <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+          <option ng-repeat="user in users | unique: 'user._id'" value={{user}} 
+                  ng-if="loggedUser.condom._id == user.condom._id">{{user.name}}</option>          
         </select>
         <select id="area" class="form-control" ng-model="filtroA" ng-change="areaEventChanged()">
           <option ng-if="event.area == null || event.area == '' || event.area == undefined" value='' selected>Área</option>
           <option ng-if="event.area != null && event.area != '' && event.area != undefined" value='' selected>{{event.area.name}}</option>
-          <option ng-repeat="area in areas | unique: 'area._id'" value='{{area}}'>{{area.name}}</option>
+          <option ng-repeat="area in areas | unique: 'area._id'" 
+                  ng-if="loggedUser.condom._id == area.condom._id"value='{{area}}'>{{area.name}}</option>
         </select>
       </div>
   </div>

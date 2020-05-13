@@ -29,18 +29,16 @@
       <div class="col-xs-12 col-sm-2">
         <label>Remetente:
           <select id="from" class="form-control" ng-model="filtroS" ng-change="senderMessageChanged()" required>
-            <option ng-if="message.sender == null || message.sender == '' || message.sender == undefined" value='' selected>Remetente</option>
-            <option ng-if="message.sender != null && message.sender != '' && message.sender != undefined" value='' selected>{{message.sender.name}}</option>
-            <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+            <option value='' selected>Remetente</option>            
+            <option ng-repeat="user in users | unique: 'user._id'" ng-if="loggedUser.isSuper || user._id === loggedUser._id" value={{user}}>{{user.name}}</option>
           </select>
         </label>
       </div>
       <div class="col-xs-12 col-sm-2">
         <label>Destinatário:
-          <select id="to" class="form-control" ng-model="filtroR" ng-change="receiverMessageChanged()" required>
-            <option ng-if="message.receiver == null || message.receiver == '' || message.receiver == undefined" value='' selected>Destinatário</option>
-            <option ng-if="message.receiver != null && message.receiver != '' && message.receiver != undefined" value='' selected>{{message.receiver.name}}</option>
-            <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+          <select id="to" class="form-control" ng-model="filtroR" ng-change="receiverMessageChanged()">
+            <option value='' selected>TODOS</option>
+            <option ng-repeat="user in users | unique: 'user._id'" ng-if="loggedUser.isSuper || user.condom._id === loggedUser.condom._id" value={{user}}>{{user.name}}</option>
           </select>
         </label>
       </div>

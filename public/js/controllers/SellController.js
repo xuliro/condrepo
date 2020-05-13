@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('SellController',
-function($scope, $http, $window, $location, $routeParams, Sell, Condom, User) {
+function($scope, $http, $window, $location, $routeParams, Sell, Condom, User, AuthService) {
+    $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.sellId){
         Sell.get({id: $routeParams.sellId},
             function(sell){

@@ -5,15 +5,16 @@
   <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">
   <span> Filtros </span>
   <select id="co" class="form-control" ng-model="filtroC" ng-change="condomAreaChanged(filtroC)">
-    <option value='' selected>Condominio</option>
-    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    <option value='' selected>Condominio</option>    
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper" value={{condom}}>{{condom.name}}</option>
+    <option ng-if="!loggedUser.isSuper" value={{loggedUser.condom}}>{{loggedUser.condom.name}}</option>
   </select>
   <select id="to" class="form-control" ng-model="filtroT" ng-change="towerAreaChanged(filtroT)">
     <option value='' selected>Torre</option>
     <option ng-repeat="tower in towers | unique: 'tower._id'" value='{{tower}}'>{{tower.name}}</option>
   </select>
 </form>
-<p>Áreas comuns cadastradas: {{areas.length}}</p>
+<p ng-if="loggedUser.isSuper">Áreas comuns cadastradas: {{areas.length}}</p>
 <p class="text-info" ng-hide="areas.length">Não há áreas comuns cadastradas</p>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -25,7 +26,8 @@
           <th class="text-left">Torre</th>
           <th class="text-right">Ações</th>
       </tr>
-      <tr ng-repeat="area in areas | filter: filterAreas">
+      <tr ng-repeat="area in areas | filter: filterAreas"
+      ng-if="loggedUser.isSuper || (loggedUser.isAdmin && area.condom._id == loggedUser.condom._id)">
           <td class="text-left">{{area.name}}</td>
           <td class="text-left">{{area.description}}</td>
           <td class="text-left">{{area.capacity}}</td>

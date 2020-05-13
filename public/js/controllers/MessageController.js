@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('MessageController',
-function($scope, $http, $window, $location, $routeParams, Message, User) {
+function($scope, $http, $window, $location, $routeParams, Message, User, AuthService) {
+  $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.messageId){
         Message.get({id: $routeParams.messageId},
             function(message){

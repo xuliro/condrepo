@@ -8,10 +8,9 @@
   <div class="col-xs-12 col-sm-12 text-center">
       <label>Associar a: </label>
       <div class="form-inline">
-        <select id="co" class="form-control" ng-model="filtroC" ng-change="coArchiveChanged()">
-          <option ng-if="archive.condom == null || archive.condom == '' || archive.condom == undefined" value='' selected>Condomínio</option>
-          <option ng-if="archive.condom != null && archive.condom != '' && archive.condom != undefined" value='' selected>{{archive.condom.name}}</option>
-          <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+        <select id="co" class="form-control" ng-model="filtroC" ng-change="coArchiveChanged()" required>
+          <option value='' selected>Condomínio</option>          
+          <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper || loggedUser.condom._id == condom._id" value={{condom}}>{{condom.name}}</option>
         </select>
       </div>
   </div>

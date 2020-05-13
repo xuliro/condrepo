@@ -1,7 +1,7 @@
 angular.module('prototipo').controller('CondomController',
     function($scope, $http, $window, $location, $routeParams, Condom, Tower, Area, AuthService) {
-        if($routeParams.condomId){
-            $scope.loggedUser = AuthService.getLoggedUser();
+        $scope.loggedUser = AuthService.getLoggedUser();
+        if($routeParams.condomId){            
             Condom.get({id: $routeParams.condomId},
                 function(condom){
                     $scope.condom = condom;

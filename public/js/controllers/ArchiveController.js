@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('ArchiveController',
-function($scope, $http, $window, $location, $routeParams, Archive, Condom) {
+function($scope, $http, $window, $location, $routeParams, Archive, Condom, AuthService) {
+    $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.archiveId){
         Archive.get({id: $routeParams.archiveId},
             function(archive){

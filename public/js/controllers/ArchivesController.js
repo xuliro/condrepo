@@ -39,10 +39,7 @@ function($scope, $window, $http, Archive, Condom, AuthService) {
       $scope.condom = [];
       if (filtro != ''){
         $scope.condom = JSON.parse(filtro);
-        $http.get('/condoms/' + $scope.condom._id)
-        .then(function(response) {
-            $scope.filtroC = $scope.condom.name;
-        });
+        $scope.filtroC = $scope.condom.name;        
       }
     }
 

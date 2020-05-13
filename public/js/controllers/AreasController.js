@@ -1,9 +1,10 @@
 ﻿angular.module('prototipo').controller('AreasController',
-function($scope, $window, $http, Area, Condom, Tower, Unit) {
+function($scope, $window, $http, Area, Condom, Tower, Unit, AuthService) {
     $scope.areas = [];
     $scope.selectedArea = '';
     $scope.mensagem = {texto: ''};
-
+    $scope.loggedUser = AuthService.getLoggedUser();
+    
     function buscaAreas() {
         Area.query(
         function(areas){
@@ -28,17 +29,8 @@ function($scope, $window, $http, Area, Condom, Tower, Unit) {
         }
     }
 
-    $scope.showDetails = function(area) {
-      var alertMessage = "Área Comum: " + area.name +
-          "\nDescrição: " + area.description +
-          "\nCapacidade: " + area.capacity + " pessoas" +
-          (area.tower === null ? "" : ("\nTorre: " + area.tower.name));
-      $window.alert(alertMessage);
-    }
-
     $scope.condoms = [];
     $scope.towers = [];
-
     $scope.condom = null;
     $scope.tower = null;
 
@@ -51,10 +43,10 @@ function($scope, $window, $http, Area, Condom, Tower, Unit) {
       $scope.towers = [];
       if (filtro != ''){
         $scope.condom = JSON.parse(filtro);
+        $scope.filtroC = $scope.condom.name;
         $http.get('/condoms/' + $scope.condom._id)
         .then(function(response) {
-            $scope.towers = response.data.towers;
-            $scope.filtroC = $scope.condom.name;
+            $scope.towers = response.data.towers;            
         });
       }
     }
@@ -63,10 +55,7 @@ function($scope, $window, $http, Area, Condom, Tower, Unit) {
       $scope.tower = [];
       if (filtro != ''){
         $scope.tower = JSON.parse(filtro);
-        $http.get('/towers/' + $scope.tower._id)
-        .then(function(response) {
-            $scope.filtroT = $scope.tower.name;
-        });
+        $scope.filtroT = $scope.tower.name;        
       }
     }
 
@@ -87,6 +76,14 @@ function($scope, $window, $http, Area, Condom, Tower, Unit) {
           }
         }
         return area;
+    }
+
+    $scope.showDetails = function(area) {
+      var alertMessage = "Área Comum: " + area.name +
+          "\nDescrição: " + area.description +
+          "\nCapacidade: " + area.capacity + " pessoas" +
+          (area.tower === null ? "" : ("\nTorre: " + area.tower.name));
+      $window.alert(alertMessage);
     }
 
     $scope.back = function(){

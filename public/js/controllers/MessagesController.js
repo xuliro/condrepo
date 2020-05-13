@@ -67,20 +67,14 @@ function($scope, $window, $http, Message, User, AuthService) {
     $scope.senderMessageChanged =  function(filtro){
       if (filtro != ''){
         $scope.sender = JSON.parse(filtro);
-        $http.get('/messages/sender/' + $scope.sender._id)
-        .then(function(response) {
-            $scope.filtroS = $scope.sender.name;
-        });
+        $scope.filtroS = $scope.sender.name;        
       }
     }
 
     $scope.receiverMessageChanged = function(filtro){
       if (filtro != ''){
         $scope.receiver = JSON.parse(filtro);
-        $http.get('/messages/receiver/' + $scope.receiver._id)
-        .then(function(response) {
-            $scope.filtroR = $scope.receiver.name;
-        });
+        $scope.filtroR = $scope.receiver.name;        
       }
     }
 

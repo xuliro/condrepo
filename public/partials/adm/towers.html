@@ -1,13 +1,20 @@
-<label>Torres:</label>
-<table class="table table-hover">
-    <tr>
-        <th class="text-left">Torre</th>
-        <th class="text-right">Ação</th>
-    </tr>
-    <tr ng-repeat="tower in condom.towers">
-        <td class="text-left">{{tower.name}}</td>
-        <td class="text-right">
-          <a class="btn btn-primary" ng-href="#/tower/{{tower._id}}"><i class="fa fa-pencil"></i></a>
-        </td>
-    </tr>
-</table>
+<div class="table-responsive col-xs-12 col-sm-6" ng-if="condom.towers.length > 0">
+    <table class="table table-hover">
+        <tr>
+            <th class="text-left">Torre</th>
+            <th class="text-right">Ação</th>
+        </tr>
+        <tr ng-repeat="tower in condom.towers">
+            <td class="text-left">{{tower.name}}</td>
+            <td class="text-right">
+              <a class="btn btn-primary" ng-href="#/tower/{{tower._id}}"><i class="fa fa-pencil"></i></a>
+              <a class="btn btn-danger" ng-click="removeTowerFromCondom(tower)"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="table-responsive col-xs-12 col-sm-6">
+  <label class="form-inline" for="name">Nova Torre <input type="text" class="form-control" id="name" name="name" ng-model="newTower">
+    <a class="btn btn-primary" ng-click="addTowerToCondom(newTower)"><i class="fa fa-plus"></i></a>
+  </label>
+</div>

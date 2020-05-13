@@ -78,12 +78,12 @@ function($scope, $http, $window, User, Condom, Tower, Unit, AuthService) {
     $scope.condomChanged =  function(filtro){
       $scope.condom = [];
       $scope.towers = [];
-      if (filtro != ''){
+      if (filtro != ''){        
         $scope.condom = JSON.parse(filtro);
+        $scope.filtroC = $scope.condom.name;
         $http.get('/condoms/' + $scope.condom._id)
         .then(function(response) {
-            $scope.towers = response.data.towers;
-            $scope.filtroC = $scope.condom.name;
+            $scope.towers = response.data.towers;            
         });
       }
     }
@@ -91,12 +91,12 @@ function($scope, $http, $window, User, Condom, Tower, Unit, AuthService) {
     $scope.towerChanged = function(filtro){
       $scope.tower = [];
       $scope.units = [];
-      if (filtro != ''){
+      if (filtro != ''){        
         $scope.tower = JSON.parse(filtro);
+        $scope.filtroT = $scope.tower.name;
         $http.get('/towers/' + $scope.tower._id)
         .then(function(response) {
-            $scope.units = response.data.units;
-            $scope.filtroT = $scope.tower.name;
+            $scope.units = response.data.units;            
         });
       }
     }

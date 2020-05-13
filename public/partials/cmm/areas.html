@@ -1,4 +1,4 @@
-<label>Áreas comuns:</label>
+<span class="text-primary">Áreas Comuns</span>
 {{filtroTower._id}}
 <div ng-controller="AreasController">
   <table class="table table-hover">
@@ -8,13 +8,7 @@
           <th class="text-left">Capacidade</th>
           <th class="text-right">Ação</th>
       </tr>
-      <tr ng-repeat="area in areas | filter: {tower: null}">
-          <td class="text-left">{{area.name}}</td>
-          <td class="text-left">{{area.description}}</td>
-          <td class="text-left">{{area.capacity}}</td>
-          <td class="text-right"><a class="btn btn-success" ng-click="showDetails(area)"><i class="fa fa-search"></i></a></td>
-      </tr>
-      <tr ng-repeat="area in areas | filter: {tower: {_id: filtroTower}} ">
+      <tr ng-repeat="area in areas" ng-if="area.condom._id == loggedUser.condom._id">
           <td class="text-left">{{area.name}}</td>
           <td class="text-left">{{area.description}}</td>
           <td class="text-left">{{area.capacity}}</td>

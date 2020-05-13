@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('ServerController',
-function($scope, $http, $window, $location, $routeParams, Server, Condom, Tower, Unit) {
+function($scope, $http, $window, $location, $routeParams, Server, Condom, Tower, Unit, AuthService) {
+    $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.serverId){
         Server.get({id: $routeParams.serverId},
             function(server){

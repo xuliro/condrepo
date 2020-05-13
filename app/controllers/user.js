@@ -74,9 +74,9 @@ module.exports = function (app) {
     userController.salvaUser = function (req, res) {
         var _id = req.body._id;
         var pwd = req.body.password;
-        if (req.body.password.length <= 30) {
+        /*if (req.body.password.length <= 30) {
             pwd = md5(req.body.password);
-        }
+        }*/
 
         var dados = {
             "login": req.body.login,

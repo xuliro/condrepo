@@ -6,10 +6,10 @@
   <span> Filtros </span>
   <select id="co" class="form-control" ng-model="filtroC" ng-change="condomServerChanged(filtroC)">
     <option value='' selected>Condominio</option>
-    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper || loggedUser.condom._id === condom._id" value={{condom}}>{{condom.name}}</option>
   </select>
 </form>
-<p>Prestadores cadastrados: {{servers.length}}</p>
+<p ng-if="loggedUser.isSuper">Prestadores cadastrados: {{servers.length}}</p>
 <p class="text-info" ng-hide="servers.length">Não há prestadores cadastrados</p>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -21,7 +21,7 @@
           <th class="text-left">Condomínio</th>
           <th class="text-right">Ações</th>
       </tr>
-      <tr ng-repeat="server in servers | filter: filterServers">
+      <tr ng-repeat="server in servers | filter: filterServers" ng-if="loggedUser.isSuper || loggedUser.condom._id === server.condom._id">
           <td class="text-left">{{server.name}}</td>
           <td class="text-left">{{server.category}}</td>
           <td class="text-left">{{server.description}}</td>
@@ -30,7 +30,7 @@
           <td class="text-right">
             <a class="btn btn-primary" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-href="#/server/{{server._id}}"><i class="fa fa-pencil"></i></a>
             <a class="btn btn-danger" ng-if="loggedUser.isSuper || loggedUser.isAdmin" ng-click="removeServer(server)"><i class="fa fa-trash"></i></a>
-            <a class="btn btn-success" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-click="showDetails(server)"><i class="fa fa-search"></i></a>
+            <a class="btn btn-success" ng-click="showDetails(server)"><i class="fa fa-search"></i></a>
           </td>
       </tr>
     </table>

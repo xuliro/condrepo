@@ -6,10 +6,10 @@
   <span> Filtros </span>
   <select id="co" class="form-control" ng-model="filtroC" ng-change="condomArchiveChanged(filtroC)">
     <option value='' selected>Condominio</option>
-    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper || loggedUser.condom._id === condom._id" value={{condom}}>{{condom.name}}</option>
   </select>
 </form>
-<p>Arquivos cadastrados: {{archives.length}}</p>
+<p ng-if="loggedUser.isSuper">Arquivos cadastrados: {{archives.length}}</p>
 <p class="text-info" ng-hide="archives.length">Não há arquivos cadastrados</p>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -20,7 +20,7 @@
           <th class="text-left">Condomínio</th>
           <th class="text-right">Ações</th>
       </tr>
-      <tr ng-repeat="archive in archives | filter: filterArchives">
+      <tr ng-repeat="archive in archives | filter: filterArchives" ng-if="loggedUser.isSuper || loggedUser.condom._id === archive.condom._id">
           <td class="text-left">{{archive.brief}}</td>
           <td class="text-left">{{archive.details}}</td>
           <td class="text-left">{{archive.inclusion | date:'dd/MM/yyyy'}}</td>

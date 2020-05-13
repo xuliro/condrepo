@@ -6,7 +6,7 @@
   <span> Filtros </span>
   <select id="co" class="form-control" ng-model="filtroC" ng-change="condomWorkerChanged(filtroC)">
     <option value='' selected>Condominio</option>
-    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper || loggedUser.condom._id === condom._id" value={{condom}}>{{condom.name}}</option>
   </select>
   <select id="to" class="form-control" ng-model="filtroT" ng-change="towerWorkerChanged(filtroT)">
     <option value='' selected>Torre</option>
@@ -17,7 +17,7 @@
     <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
   </select>
 </form>
-<p>Funcionários cadastrados: {{workers.length}}</p>
+<p ng-if="loggedUser.isSuper">Funcionários cadastrados: {{workers.length}}</p>
 <p class="text-info" ng-hide="workers.length">Não há funcionários cadastrados</p>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -31,7 +31,8 @@
           <th class="text-left">Unidade</th>
           <th class="text-right">Ações</th>
       </tr>
-      <tr ng-repeat="worker in workers | filter: filterWorkers">
+      <tr ng-repeat="worker in workers | filter: filterWorkers" ng-if="loggedUser.isSuper || 
+          (loggedUser.condom._id === worker.condom._id || loggedUser.tower._id === worker.tower._id || loggedUser.unit._id === worker.unit._id)">
           <td class="text-left">{{worker.name}}</td>
           <td class="text-left">{{worker.contact}}</td>
           <td class="text-left">{{worker.address}}</td>
@@ -40,9 +41,9 @@
           <td class="text-left">{{worker.tower.name}}</td>
           <td class="text-left">{{worker.unit.name}}</td>
           <td class="text-right">
-            <a class="btn btn-primary" ng-if="loggedUser.unit._id === worker.unit._id || (worker.unit === null && loggedUser.isAdmin) || loggedUser.isSuper" ng-href="#/worker/{{worker._id}}"><i class="fa fa-pencil"></i></a>
-            <a class="btn btn-success" ng-if="loggedUser.unit._id != worker.unit._id && worker.unit != null && !loggedUser.isSuper" ng-click="showDetails(worker)"><i class="fa fa-search"></i></a>
+            <a class="btn btn-primary" ng-if="loggedUser.unit._id === worker.unit._id || (worker.unit === null && loggedUser.isAdmin) || loggedUser.isSuper" ng-href="#/worker/{{worker._id}}"><i class="fa fa-pencil"></i></a>            
             <a class="btn btn-danger" ng-click="removeWorker(worker)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-click="showDetails(worker)"><i class="fa fa-search"></i></a>
           </td>
       </tr>
     </table>

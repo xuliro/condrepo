@@ -1,7 +1,8 @@
 ﻿angular.module('prototipo').controller('CondomsController',
-function($scope, $window, Condom) {
+function($scope, $window, Condom, AuthService) {
     $scope.condoms = [];
     $scope.mensagem = {texto: ''};
+    $scope.loggedUser = AuthService.getLoggedUser();
 
     function buscaCondoms() {
         Condom.query(

@@ -10,10 +10,9 @@
   <div class="col-xs-12 col-sm-12 text-center">
       <label>Associar a: </label>
       <div class="form-inline">
-        <select id="co" class="form-control" ng-model="filtroC" ng-change="coServerChanged()">
-          <option ng-if="server.condom == null || server.condom == '' || server.condom == undefined" value='' selected>Condominio</option>
-          <option ng-if="server.condom != null && server.condom != '' && server.condom != undefined" value='' selected>{{server.condom.name}}</option>
-          <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+        <select id="co" class="form-control" ng-model="filtroC" ng-change="coServerChanged()" required>
+          <option value='' selected>Condomínio</option>
+          <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper || condom._id == loggedUser.condom._id" value={{condom}}>{{condom.name}}</option>
         </select>
       </div>
   </div>

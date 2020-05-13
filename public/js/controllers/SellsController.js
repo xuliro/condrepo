@@ -44,20 +44,14 @@ function($scope, $window, $http, Sell, Condom, User, AuthService) {
       $scope.condom = [];
       if (filtro != ''){
         $scope.condom = JSON.parse(filtro);
-        $http.get('/condoms/' + $scope.condom._id)
-        .then(function(response) {
-            $scope.filtroC = $scope.condom.name;
-        });
+        $scope.filtroC = $scope.condom.name;        
       }
     }
     $scope.userSellChanged =  function(filtro){
       $scope.user = [];
       if (filtro != ''){
         $scope.user = JSON.parse(filtro);
-        $http.get('/users/' + $scope.user._id)
-        .then(function(response) {
-            $scope.filtroU = $scope.user.name;
-        });
+        $scope.filtroU = $scope.user.name;        
       }
     }
 

@@ -1,4 +1,4 @@
-<span class="text-primary">Funcionarios cadastrados: {{workers.length}}</span>
+<span class="text-primary">Funcionarios</span>
 <div ng-controller="WorkersController">
   <table class="table table-hover">
     <tr>
@@ -6,7 +6,7 @@
         <th class="text-center col-xs-12 col-sm-2">Contato</th>
         <th class="text-center col-xs-12 col-sm-1">Detalhes</th>
     </tr>
-    <tr ng-repeat="worker in workers">
+    <tr ng-repeat="worker in workers" ng-if="loggedUser.condom._id === worker.condom._id || loggedUser.tower._id === worker.tower._id || loggedUser.unit._id === worker.unit._id">
         <td class="text-center col-xs-12 col-sm-3">{{worker.name}}</td>
         <td class="text-center col-xs-12 col-sm-2">{{worker.contact}}</td>
         <td class="text-center col-xs-12 col-sm-1"><a class="btn btn-success" ng-click="showDetails(worker)"><i class="fa fa-search"></i></a></td>

@@ -5,9 +5,6 @@ function($scope, $window, $http, Event, User, Area, AuthService) {
     $scope.mensagem = {texto: ''};
     $scope.loggedUser = AuthService.getLoggedUser();
 
-    $scope.filtroU = '';
-    $scope.filtroA = '';
-
     function buscaEvents() {
         Event.query(
         function(events){
@@ -40,6 +37,7 @@ function($scope, $window, $http, Event, User, Area, AuthService) {
     User.query(function(users) {
         $scope.users = users;
     });
+
     Area.query(function(areas) {
         $scope.areas = areas;
     });
@@ -47,20 +45,14 @@ function($scope, $window, $http, Event, User, Area, AuthService) {
     $scope.userEventChanged =  function(filtro){
       if (filtro != ''){
         user = JSON.parse(filtro);
-        $http.get('/users/' + user._id)
-        .then(function(response) {
-            $scope.filtroU = user.name;
-        });
+        $scope.filtroU = user.name;
       }
     }
 
     $scope.areaEventChanged = function(filtro){
       if (filtro != ''){
         area = JSON.parse(filtro);
-        $http.get('/areas/' + area._id)
-        .then(function(response) {
-            $scope.filtroA = area.name;
-        });
+        $scope.filtroA = area.name;        
       }
     }
 

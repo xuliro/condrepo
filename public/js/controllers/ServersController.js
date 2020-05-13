@@ -1,5 +1,5 @@
 ﻿angular.module('prototipo').controller('ServersController',
-function($scope, $window, $http, Server, Condom, Tower, Unit,AuthService) {
+function($scope, $window, $http, Server, Condom, Tower, Unit, AuthService) {
     $scope.servers = [];
     $scope.mensagem = {texto: ''};
     $scope.loggedUser = AuthService.getLoggedUser();
@@ -39,10 +39,7 @@ function($scope, $window, $http, Server, Condom, Tower, Unit,AuthService) {
       $scope.condom = [];
       if (filtro != ''){
         $scope.condom = JSON.parse(filtro);
-        $http.get('/condoms/' + $scope.condom._id)
-        .then(function(response) {
-            $scope.filtroC = $scope.condom.name;
-        });
+        $scope.filtroC = $scope.condom.name;        
       }
     }
 

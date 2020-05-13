@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('EventController',
-function($scope, $http, $window, $location, $routeParams, Event, User, Area) {
+function($scope, $http, $window, $location, $routeParams, Event, User, Area, AuthService) {
+    $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.eventId){
         Event.get({id: $routeParams.eventId},
             function(event){

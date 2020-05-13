@@ -1,12 +1,14 @@
 <h1 class="text-center" style="background-color: darkblue; color: cornsilk;">Smart Síndico - Gestão de Condomínios - Despesas</h1>
 <br>
-<form class="form-inline">
+<form class="form-inline" ng-if="loggedUser.isAdmin || loggedUser.isSuper">
   <a class="btn btn-primary" ng-href="#/bill">Nova Despesa</a>
   <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por descrição">
   <span> Filtros </span>
   <select id="co" class="form-control" ng-model="filtroC" ng-change="condomBillChanged(filtroC)">
     <option value='' selected>Condominio</option>
-    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}
+      ng-if="loggedUser.isSuper || (loggedUser.isAdmin && condom._id == loggedUser.condom._id)"
+    >{{condom.name}}</option>
   </select>
   <select id="to" class="form-control" ng-model="filtroT" ng-change="towerBillChanged(filtroT)">
     <option value='' selected>Torre</option>
@@ -17,7 +19,7 @@
     <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
   </select>
 </form>
-<p>Despesas cadastrados: {{bills.length}}</p>
+<p ng-if="loggedUser.isSuper">Despesas cadastrados: {{bills.length}}</p>
 <p class="text-info" ng-hide="bills.length">Não há despesas cadastradas</p>
 <div class="table-responsive">
   <table class="table table-hover">
@@ -33,7 +35,16 @@
       <th class="text-left">Boleto</th>
       <th class="text-right">Ações</th>
     </tr>
-    <tr ng-repeat="bill in bills | filter: filterBills">
+    <tr ng-repeat="bill in bills | filter: filterBills" 
+    ng-if="
+    (loggedUser.isSuper) ||
+    (loggedUser.isAdmin && loggedUser.condom._id == bill.condom._id) ||
+    (
+      loggedUser.condom._id == bill.condom._id && 
+      (loggedUser.tower == null || loggedUser.tower._id == bill.tower._id) && 
+      (loggedUser.unit == null  || loggedUser.unit._id == bill.unit._id)
+    )
+    ">
       <td class="text-left">{{bill.description}}</td>
       <td class="text-left">R$ {{bill.value}}</td>
       <td class="text-left">{{bill.condom.name}}</td>
@@ -53,7 +64,7 @@
             class="fa fa-trash"></i></a>
         <a class="btn btn-success" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-click="showDetails(bill)"><i
             class="fa fa-search"></i></a>
-      </td>
+      </td>      
     </tr>
   </table>
 </div>

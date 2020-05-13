@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('WorkerController',
-function($scope, $http, $window, $location, $routeParams, Worker, Condom, Tower, Unit) {
+function($scope, $http, $window, $location, $routeParams, Worker, Condom, Tower, Unit, AuthService) {
+  $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.workerId){
         Worker.get({id: $routeParams.workerId},
             function(worker){
@@ -53,10 +54,10 @@ function($scope, $http, $window, $location, $routeParams, Worker, Condom, Tower,
       $scope.filtroCo = '';
       if (filtro != ''){
         condom = JSON.parse(filtro);
+        $scope.filtroCo = condom.name;
         $http.get('/condoms/' + condom._id)
         .then(function(response) {
-            $scope.towers = response.data.towers;
-            $scope.filtroCo = condom.name;
+            $scope.towers = response.data.towers;            
         });
       }
     }
@@ -65,10 +66,10 @@ function($scope, $http, $window, $location, $routeParams, Worker, Condom, Tower,
       $scope.filtroTo = '';
       if (filtro != ''){
         tower = JSON.parse(filtro);
+        $scope.filtroTo = tower.name;
         $http.get('/towers/' + tower._id)
         .then(function(response) {
-            $scope.units = response.data.units;
-            $scope.filtroTo = tower.name;
+            $scope.units = response.data.units;            
         });
       }
     }

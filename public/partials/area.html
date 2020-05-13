@@ -9,9 +9,9 @@
   <div class="form-inline col-xs-12 col-sm-12 text-center">
     <label>Associar a: </label>
     <select id="co" class="form-control" ng-model="filtroC" ng-change="coAreaChanged()">
-      <option ng-if="area.condom == null || area.condom == '' || area.condom == undefined" value='' selected>Condominio</option>
-      <option ng-if="area.condom != null && area.condom != '' && area.condom != undefined" value='' selected>{{area.condom.name}}</option>
-      <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+      <option value='' selected>Condominio</option>      
+      <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper" value={{condom}}>{{condom.name}}</option>
+    <option ng-if="!loggedUser.isSuper" value={{loggedUser.condom}}>{{loggedUser.condom.name}}</option>
     </select>
     <select id="to" class="form-control" ng-model="filtroT" ng-change="toAreaChanged()">
       <option ng-if="area.tower == null || area.tower == '' || area.tower == undefined" value='' selected>Torre</option>

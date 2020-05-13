@@ -6,14 +6,14 @@
   <span> Filtros </span>
   <select id="co" class="form-control" ng-model="filtroC" ng-change="condomSellChanged(filtroC)">
     <option value='' selected>Condominio</option>
-    <option ng-repeat="condom in condoms | unique: 'condom._id'" value={{condom}}>{{condom.name}}</option>
+    <option ng-repeat="condom in condoms | unique: 'condom._id'" ng-if="loggedUser.isSuper || loggedUser.condom._id === condom._id" value={{condom}}>{{condom.name}}</option>
   </select>
   <select id="us" class="form-control" ng-model="filtroU" ng-change="userSellChanged(filtroU)">
     <option value='' selected>Usuário</option>
-    <option ng-repeat="user in users | unique: 'user._id'" value={{user}}>{{user.name}}</option>
+    <option ng-repeat="user in users | unique: 'user._id'" value={{user}} ng-if="loggedUser.isSuper || loggedUser.condom._id === user.condom._id">{{user.name}}</option>
   </select>
 </form>
-<p>Anúncios cadastrados: {{sells.length}}</p>
+<p ng-if="loggedUser.isSuper">Anúncios cadastrados: {{sells.length}}</p>
 <p class="text-info" ng-hide="sells.length">Não há anúncios cadastrados</p>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -27,7 +27,7 @@
           <th class="text-left">Usuário</th>
           <th class="text-right">Ações</th>
       </tr>
-      <tr ng-repeat="sell in sells | filter: filterSells">
+      <tr ng-repeat="sell in sells | filter: filterSells" ng-if="loggedUser.isSuper || loggedUser.condom._id === sell.condom._id">
           <td class="text-left">{{sell.title}}</td>
           <td class="text-left">{{sell.value}}</td>
           <td class="text-left">{{sell.details}}</td>
@@ -36,9 +36,9 @@
           <td class="text-left">{{sell.condom.name}}</td>
           <td class="text-left">{{sell.user.name}}</td>
           <td class="text-right">
-            <a class="btn btn-primary" ng-if="loggedUser._id === sell.user._id || loggedUser.isSuper" ng-href="#/sell/{{sell._id}}"><i class="fa fa-pencil"></i></a>
-            <a class="btn btn-success" ng-if="loggedUser._id != sell.user._id && !loggedUser.isSuper" ng-click="showDetails(sell)"><i class="fa fa-search"></i></a>
+            <a class="btn btn-primary" ng-if="loggedUser._id === sell.user._id || loggedUser.isSuper" ng-href="#/sell/{{sell._id}}"><i class="fa fa-pencil"></i></a>            
             <a class="btn btn-danger" ng-if="loggedUser._id === sell.user._id || loggedUser.isSuper || loggedUser.isAdmin" ng-click="removeSell(sell)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-click="showDetails(sell)"><i class="fa fa-search"></i></a>
           </td>
       </tr>
     </table>

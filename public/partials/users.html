@@ -25,7 +25,7 @@
   <div class="checkbox-inline"><input type="checkbox" ng-model="filtroAdmin" ng-false-value="">Síndico</div>
   <div class="checkbox-inline"><input type="checkbox" ng-model="filtroBlocked" ng-false-value="">Bloqueado</div>
 </form>
-<p>Usuários cadastrados: {{users.length}}</p>
+<png-if="loggedUser.isSuper">Usuários cadastrados: {{users.length}}</p>
 <p class="text-info" ng-hide="users.length">Não há usuários cadastrados</p>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -55,17 +55,10 @@
           <td class="text-center" ng-if="loggedUser.isSuper"><i class="fa fa-check text-success" ng-if="user.isSuper"></i><i class="fa fa-times text-danger" ng-if="!user.isSuper"></i></td>
           <td class="text-center" ng-if="loggedUser.isAdmin"><i class="fa fa-check text-success" ng-if="user.isAdmin"></i><i class="fa fa-times text-danger" ng-if="!user.isAdmin"></i></td>
           <td class="text-center"><i class="fa fa-ban text-danger" ng-if="user.isBlocked"></i><i class="fa fa-check text-success" ng-if="!user.isBlocked"></i></td>
-          <td class="text-right" ng-if="loggedUser.isSuper">
+          <td class="text-right">
             <a class="btn btn-primary" ng-href="#/user/{{user._id}}"><i class="fa fa-pencil"></i></a>
             <a class="btn btn-danger" ng-click="removeUser(user)"><i class="fa fa-trash"></i></a>
-          </td>
-          <td class="text-right" ng-if="!loggedUser.isSuper && loggedUser.isAdmin">
-            <!-- Bellow link was removed because it will be a link into the user details page
-            <a class="btn btn-success" ng-href="#/user/{{user._id}}"><i class="fa fa-search"></i></a>
-            -->
-            <a class="btn btn-primary" ng-if="user.id === loggedUser.id" ng-href="#/user/{{user._id}}"><i class="fa fa-pencil"></i></a>
-            <a class="btn btn-success"ng-if="user.id != loggedUser.id" ng-click="showDetails(user)"><i class="fa fa-search"></i></a>
-          </td>
+          </td>          
       </tr>
     </table>
 </div>
