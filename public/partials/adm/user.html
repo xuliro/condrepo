@@ -8,6 +8,7 @@
     <div class="form-group text-center">
       <p></p>
       <label for="isAdmin"><input type="checkbox" id="isAdmin" name="isAdmin" ng-model="user.isAdmin"> Síndico</label>
+      <label for="isEntrance"><input type="checkbox" id="isEntrance" name="isEntrance" ng-model="user.isEntrance" ng-false-value="false"> Portaria</label>
       <label for="isBlocked"><input type="checkbox" id="isBlocked" name="isBlocked" ng-model="user.isBlocked"> Bloqueado</label>
     </div>
     <div class="form-group text-center" ng-if="user.condom != undefined">

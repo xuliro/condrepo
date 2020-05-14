@@ -88,6 +88,7 @@ module.exports = function (app) {
             "provider": req.body.provider,
             "isAdmin": req.body.isAdmin,
             "isSuper": req.body.isSuper,
+            "isEntrance": req.body.isEntrance,
             "isBlocked": req.body.isBlocked,
             "condom": req.body.condom || null,
             "tower": req.body.tower || null,

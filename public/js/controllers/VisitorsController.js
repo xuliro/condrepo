@@ -86,10 +86,9 @@ function($scope, $window, $http, Visitor, Event, Unit, AuthService) {
       var alertMessage = "Visitante: " + visitor.name +
           "\nContato: " + visitor.contact +
           "\nDocumento: " + visitor.document +
+          "\nDetalhes: " + visitor.details +
           "\nData de entrada: " + visitor.enter +
-          (visitor.exit === null ? "" : ("\nData de saída: " + visitor.exit)) +
-          (visitor.event === null ? "" : ("\nEvento: " + visitor.event.name + " " + visitor.event.date)) +
-          ((visitor.unit === null || visitor.unit === undefined) ? "" : ("\nUnidade: " + visitor.unit.name));
+          (visitor.exit === null ? "" : ("\nData de saída: " + visitor.exit));
       $window.alert(alertMessage);
     }
 

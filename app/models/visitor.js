@@ -10,6 +10,10 @@ module.exports = function () {
       type: String,
       required: true
     },
+    details: {
+      type: String,
+      required: false
+    },
     contact: {
       type: String,
       required: true
@@ -22,13 +26,9 @@ module.exports = function () {
       type: Date,
       default: null
     },
-    event: {
+    condom: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Event'
-    },
-    unit: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Unit'
+      ref: 'Condom'
     }
   });
   schema.plugin(findOrCreate);

@@ -1,4 +1,16 @@
 <div class="col-xs-12 col-sm-12" ng-if="!loggedUser.isBlocked">
-  <h4 class="text-primary"><i class="fa fa-user"></i> {{loggedUser.name}} <a class="btn btn-primary" ng-href="#/user/{{loggedUser._id}}"><i class="fa fa-pencil"></i></a></h4>
+  <h4 class="text-primary"><i class="fa fa-user"></i> {{loggedUser.name}}</h4>
 </div>
-<div id="cmm" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin" ng-include="'partials/cmm/condom.html'"></div>
+<div id="cmm" ng-if="!loggedUser.isSuper && !loggedUser.isAdmin && !loggedUser.isEntrance" ng-include="'partials/cmm/condom.html'"></div>
+<div id="cmm" ng-if="loggedUser.isEntrance">
+  <div class="col-xs-12 col-sm-2 text-center">
+    <a class="btn btn-success" href="#/visitors"><i class="fa fa-male"></i></a>
+    <p></p>
+    <span class="text-success">Visitantes</span>
+  </div>
+  <div class="col-xs-12 col-sm-2 text-center">
+    <a class="btn btn-primary" href="#/messages"><i class="fa fa-envelope-o"></i></a>
+    <p></p>
+    <span class="text-primary">Mensagens</span>
+  </div>
+</div>

@@ -5,24 +5,10 @@
       <label class="col-xs-12 col-sm-4" for="name">Nome <input type="text" class="form-control form-inline" id="name" name="name" required ng-model="visitor.name"></label>
       <label class="col-xs-12 col-sm-2" for="contact">Contato <input type="text" class="form-control form-inline" id="contact" name="contact" required ng-model="visitor.contact"></label>
       <label class="col-xs-12 col-sm-2" for="document">Documento <input type="text" class="form-control form-inline" id="document" name="document" required ng-model="visitor.document"></label>
+      <label class="col-xs-12 col-sm-2" for="details">Detalhes <input type="text" class="form-control form-inline" id="details" name="details" ng-model="visitor.details"></label>
       <label class="col-xs-12 col-sm-2" for="enter">Entrada <input type="date" placeholder="dd/MM/yyyy" class="form-control form-inline" id="enter" name="enter" required ng-model="visitor.enter"></label>
       <label class="col-xs-12 col-sm-2" for="exit">Saída <input type="date" placeholder="dd/MM/yyyy" class="form-control form-inline" id="exit" name="exit" ng-model="visitor.exit"></label>
-  </div>
-  <div class="col-xs-12 col-sm-12 text-center">
-      <label>Associar a: </label>
-      <div class="form-inline">
-        <select id="event" class="form-control" ng-model="filtroE" ng-change="eventVisitorChanged()">
-          <option ng-if="visitor.event == null || visitor.event == '' || visitor.event == undefined" value='' selected>Evento</option>
-          <option ng-if="visitor.event != null && visitor.event != '' && visitor.event != undefined" value='' selected>{{visitor.event.name}}</option>
-          <option ng-repeat="event in events | unique: 'event._id'" value={{event}}>{{event.name}}</option>
-        </select>
-        <select id="unit" class="form-control" ng-model="filtroU" ng-change="unitVisitorChanged()">
-          <option ng-if="visitor.unit == null || visitor.unit == '' || visitor.unit == undefined" value='' selected>Unidade</option>
-          <option ng-if="visitor.unit != null && visitor.unit != '' && visitor.unit != undefined" value='' selected>{{visitor.unit.name}}</option>
-          <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
-        </select>
-      </div>
-  </div>
+  </div>  
   <div class="col-xs-12 col-sm-12 text-center">
     <p></p>
     <button type="submit" class="btn btn-primary">Salvar</button>

@@ -38,6 +38,10 @@ module.exports = function () {
       type: Boolean,
       default: false
     },
+    isEntrance: {
+      type: Boolean,
+      default: false
+    },
     isBlocked: {
       type: Boolean,
       default: false

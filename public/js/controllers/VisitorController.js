@@ -1,5 +1,6 @@
 ﻿angular.module('prototipo').controller('VisitorController',
-function($scope, $http, $window, $location, $routeParams, Visitor, Event, Unit) {
+function($scope, $http, $window, $location, $routeParams, Visitor, Event, Unit, AuthService) {
+    $scope.loggedUser = AuthService.getLoggedUser();
     if($routeParams.visitorId){
         Visitor.get({id: $routeParams.visitorId},
             function(visitor){
@@ -25,6 +26,7 @@ function($scope, $http, $window, $location, $routeParams, Visitor, Event, Unit) 
         if (unit != ''){
           $scope.visitor.unit = unit;
         }
+        $scope.visitor.condom = $scope.loggedUser.condom;
 
         $scope.visitor.$save()
             .then(function(){
@@ -56,20 +58,14 @@ function($scope, $http, $window, $location, $routeParams, Visitor, Event, Unit) 
       $scope.filtroEvent = '';
       if ($scope.filtroE != ''){
         event = JSON.parse($scope.filtroE);
-        $http.get('/events/' + event._id)
-        .then(function(response) {
-            $scope.filtroEvent = event.name;
-        });
+        $scope.filtroEvent = event.name;
       }
     }
     $scope.unitVisitorChanged = function(){
       $scope.filtroUnit = '';
       if ($scope.filtroU != ''){
         unit = JSON.parse($scope.filtroU);
-        $http.get('/units/' + unit._id)
-        .then(function(response) {
-            $scope.filtroUnit = unit.name;
-        });
+        $scope.filtroUnit = unit.name;        
       }
     }
 });

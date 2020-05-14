@@ -56,11 +56,11 @@ module.exports = function (app) {
         var dados = {
           "name": req.body.name,
           "document": req.body.document,
+          "details": req.body.details,
           "contact": req.body.contact,
           "enter": req.body.enter,
-          "exit": req.body.exit,
-          "event": req.body.event || null,
-          "unit": req.body.unit || null
+          "exit": req.body.exit,          
+          "condom": req.body.condom || null
         };
         if(_id){
             Visitor.findByIdAndUpdate(_id, dados).exec()

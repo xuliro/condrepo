@@ -2,16 +2,7 @@
 <br>
 <form class="form-inline">
   <a class="btn btn-primary" ng-href="#/visitor">Novo Visitante</a>
-  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">
-  <span> Filtros </span>
-  <select id="ev" class="form-control" ng-model="filtroE" ng-change="eventVisitorChanged(filtroE)">
-    <option value='' selected>Evento</option>
-    <option ng-repeat="event in events | unique: 'event._id'" value={{event}}>{{event.name}}</option>
-  </select>
-  <select id="un" class="form-control" ng-model="filtroU" ng-change="unitVisitorChanged(filtroU)">
-    <option value='' selected>Unidade</option>
-    <option ng-repeat="unit in units | unique: 'unit._id'" value='{{unit}}'>{{unit.name}}</option>
-  </select>
+  <input class="form-control" ng-model="filtro" type="search" placeholder="filtrar por nome">  
 </form>
 <p>Visitantes cadastrados: {{visitors.length}}</p>
 <p class="text-info" ng-hide="visitors.length">Não há visitantes cadastrados</p>
@@ -21,24 +12,22 @@
           <th class="text-left">Nome</th>
           <th class="text-left">Contato</th>
           <th class="text-left">Documento</th>
+          <th class="text-left">Detalhes</th>
           <th class="text-left">Entrada</th>
           <th class="text-left">Saída</th>
-          <th class="text-left">Evento</th>
-          <th class="text-left">Unidade</th>
           <th class="text-right">Ações</th>
       </tr>
-      <tr ng-repeat="visitor in visitors | filter: filterVisitors">
+      <tr ng-repeat="visitor in visitors" ng-if="loggedUser.isSuper || loggedUser.condom._id === visitor.condom">
           <td class="text-left">{{visitor.name}}</td>
           <td class="text-left">{{visitor.contact}}</td>
           <td class="text-left">{{visitor.document}}</td>
+          <td class="text-left">{{visitor.details}}</td>
           <td class="text-left">{{visitor.enter | date:'dd/MM/yyyy'}}</td>
           <td class="text-left">{{visitor.exit | date:'dd/MM/yyyy'}}</td>
-          <td class="text-left">{{visitor.event.name}}</td>
-          <td class="text-left">{{visitor.unit.name}}</td>
           <td class="text-right">
-            <a class="btn btn-primary" ng-if="loggedUser.unit._id === visitor.unit._id || loggedUser._id === visitor.event.user || loggedUser.isSuper" ng-href="#/visitor/{{visitor._id}}"><i class="fa fa-pencil"></i></a>
-            <a class="btn btn-success" ng-if="loggedUser.unit._id != visitor.unit._id && loggedUser._id != visitor.event.user && !loggedUser.isSuper" ng-click="showDetails(visitor)"><i class="fa fa-search"></i></a>
-            <a class="btn btn-danger" ng-if="loggedUser.unit._id === visitor.unit._id || loggedUser._id === visitor.event.user || loggedUser.isAdmin || loggedUser.isSuper" ng-click="removeVisitor(visitor)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-primary" ng-if="loggedUser.isEntrance || loggedUser.isAdmin || loggedUser.isSuper" ng-href="#/visitor/{{visitor._id}}"><i class="fa fa-pencil"></i></a>            
+            <a class="btn btn-danger" ng-if="loggedUser.isAdmin || loggedUser.isSuper" ng-click="removeVisitor(visitor)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success" ng-click="showDetails(visitor)"><i class="fa fa-search"></i></a>
           </td>
       </tr>
     </table>
